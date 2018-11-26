@@ -1,0 +1,11 @@
+﻿@model TheHunt.Models.CheckoutViewModel
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<br /><br />
+
+<ngcart-cart template-url="@Url.Content("~/template/ngCart/cart.html")"></ngcart-cart>
+
+<custom-checkout></custom-checkout>

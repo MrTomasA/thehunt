@@ -1,0 +1,140 @@
+﻿// Configure bundling and minification for the project.
+// More info at https://go.microsoft.com/fwlink/?LinkId=808241
+[
+    // Modules
+    {
+        "outputFileName": "wwwroot/app-modules.js",
+        // An array of relative input file paths. Globbing patterns supported
+        "inputFiles": [
+            "wwwroot/js/modules/*.js"
+        ]
+    },
+
+    // CSS
+    {
+        "outputFileName": "wwwroot/css/site.min.css",
+        // An array of relative input file paths. Globbing patterns supported
+        "inputFiles": [
+            "wwwroot/css/site.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/css/angular-toastr.css",
+        // An array of relative input file paths. Globbing patterns supported
+        "inputFiles": [
+            "node_modules/angular-toastr/dist/angular-toastr.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/css/angular-toastr.min.css",
+        // An array of relative input file paths. Globbing patterns supported
+        "inputFiles": [
+            "node_modules/angular-toastr/dist/angular-toastr.min.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/css/angular-busy.css",
+        // An array of relative input file paths. Globbing patterns supported
+        "inputFiles": [
+            "node_modules/@cgross/angular-busy/dist/angular-busy.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/css/angular-busy.min.css",
+        // An array of relative input file paths. Globbing patterns supported
+        "inputFiles": [
+            "node_modules/@cgross/angular-busy/dist/angular-busy.min.css"
+        ]
+    },
+
+    // Javascript
+    {
+        "outputFileName": "wwwroot/js/angular.min.js",
+        // An array of relative input file paths. Globbing patterns supported
+        "inputFiles": [
+            "node_modules/angular/angular.min.js"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/js/angular-animate.min.js",
+        // An array of relative input file paths. Globbing patterns supported
+        "inputFiles": [
+            "node_modules/angular-animate/angular-animate.min.js"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/js/angular.js",
+        // An array of relative input file paths. Globbing patterns supported
+        "inputFiles": [
+            "node_modules/angular/angular.js"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/js/angular-animate.js",
+        // An array of relative input file paths. Globbing patterns supported
+        "inputFiles": [
+            "node_modules/angular-animate/angular-animate.js"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/js/angular-toastr.js",
+        // An array of relative input file paths. Globbing patterns supported
+        "inputFiles": [
+            "node_modules/angular-toastr/dist/angular-toastr.tpls.js"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/js/angular-toastr.min.js",
+        // An array of relative input file paths. Globbing patterns supported
+        "inputFiles": [
+            "node_modules/angular-toastr/dist/angular-toastr.tpls.min.js"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/js/site.min.js",
+        "inputFiles": [
+            "wwwroot/js/site.js"
+        ],
+        // Optionally specify minification options
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        // Optionally generate .map file
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/js/thirdparty/ngCart/ngCart.min.js",
+        "inputFiles": [
+            "wwwroot/js/thirdparty/ngCart/ngCart.js"
+        ],
+        // Optionally specify minification options
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        // Optionally generate .map file
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/js/angular-busy.js",
+        // An array of relative input file paths. Globbing patterns supported
+        "inputFiles": [
+            "node_modules/@cgross/angular-busy/dist/angular-busy.js"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/js/angular-busy.min.js",
+        // An array of relative input file paths. Globbing patterns supported
+        "inputFiles": [
+            "node_modules/@cgross/angular-busy/dist/angular-busy.min.js"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/AppBase.js",
+        // An array of relative input file paths. Globbing patterns supported
+        "inputFiles": [
+            "wwwroot/AppBase/**/*.js"
+        ]
+    }
+]
