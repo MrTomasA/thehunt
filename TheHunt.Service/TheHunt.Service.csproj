@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DdConstruction.DomainModel\TheHunt.DomainModel.csproj" />
+    <ProjectReference Include="..\TheHunt.DomainModel\TheHunt.DomainModel.csproj" />
   </ItemGroup>
 
   <ItemGroup>

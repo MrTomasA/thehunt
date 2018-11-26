@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHunt", "DdConstruction\TheHunt.csproj", "{000F2E06-57C8-4D90-814C-322EAA029E79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHunt.Host", "TheHunt.Host\TheHunt.Host.csproj", "{000F2E06-57C8-4D90-814C-322EAA029E79}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHunt.Service", "DdConstruction.Service\TheHunt.Service.csproj", "{1B97CA96-2987-48FF-A612-BD3088CF15FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHunt.Service", "TheHunt.Service\TheHunt.Service.csproj", "{1B97CA96-2987-48FF-A612-BD3088CF15FD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHunt.DomainModel", "DdConstruction.DomainModel\TheHunt.DomainModel.csproj", "{0358B4C8-4767-435B-99E8-68CB126AEE40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheHunt.DomainModel", "TheHunt.DomainModel\TheHunt.DomainModel.csproj", "{0358B4C8-4767-435B-99E8-68CB126AEE40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
