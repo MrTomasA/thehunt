@@ -104,19 +104,6 @@
         "sourceMap": false
     },
     {
-        "outputFileName": "wwwroot/js/thirdparty/ngCart/ngCart.min.js",
-        "inputFiles": [
-            "wwwroot/js/thirdparty/ngCart/ngCart.js"
-        ],
-        // Optionally specify minification options
-        "minify": {
-            "enabled": true,
-            "renameLocals": true
-        },
-        // Optionally generate .map file
-        "sourceMap": false
-    },
-    {
         "outputFileName": "wwwroot/js/angular-busy.js",
         // An array of relative input file paths. Globbing patterns supported
         "inputFiles": [
