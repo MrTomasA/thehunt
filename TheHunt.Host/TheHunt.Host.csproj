@@ -40,6 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TheHunt.Context\TheHunt.Context.csproj" />
     <ProjectReference Include="..\TheHunt.DomainModel\TheHunt.DomainModel.csproj" />
     <ProjectReference Include="..\TheHunt.Service\TheHunt.Service.csproj" />
   </ItemGroup>

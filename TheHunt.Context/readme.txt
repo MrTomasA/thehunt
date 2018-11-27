@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "Server=.\SQLEXPRESS;Database=TheHunt;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir C:\workspace\thehunt\TheHunt.Context\Models -force

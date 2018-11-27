@@ -1,12 +1,14 @@
-﻿using TheHunt.DomainModel;
-using TheHunt.Service;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using NJsonSchema;
 using NSwag.AspNetCore;
+using TheHunt.DomainModel;
+using TheHunt.Host;
+using TheHunt.Service;
 
 namespace TheHunt
 {
@@ -26,18 +28,18 @@ namespace TheHunt
             services.Configure<ServiceConfiguration>(Configuration);
             services.AddScoped(sp => sp.GetService<IOptionsSnapshot<ServiceConfiguration>>()?.Value);
 
-            //services.AddScoped(sp =>
-            //{
-            //    var config = sp.GetRequiredService<ServiceConfiguration>();
-            //    var optionsBuilder = new DbContextOptionsBuilder<DoubleDConstructionContext>();
-            //    optionsBuilder.UseSqlServer(config.SqlServerConnectionString);
+            services.AddScoped(sp =>
+            {
+                var config = sp.GetRequiredService<ServiceConfiguration>();
+                var optionsBuilder = new DbContextOptionsBuilder<TheHuntContext>();
+                optionsBuilder.UseSqlServer(config.SqlServerConnectionString);
 
-            //    return optionsBuilder.Options;
-            //});
+                return optionsBuilder.Options;
+            });
 
             services.AddCors(options => options.AddPolicy("DefaultPolicyName", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
 
-            //services.AddDbContext<DoubleDConstructionContext>(ServiceLifetime.Scoped);
+            services.AddDbContext<TheHuntContext>(ServiceLifetime.Scoped);
 
             services.AddMvc();
 
