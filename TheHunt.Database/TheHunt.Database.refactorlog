@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="27fb7bf2-b0f0-42a3-b25e-8c0313143878" ChangeDateTime="11/27/2018 01:22:13">
+    <Property Name="ElementName" Value="[dbo].[UserLog].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[UserLog]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserAccountId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ef244f32-df11-412d-8033-c599c6e6d743" ChangeDateTime="11/27/2018 01:26:14">
+    <Property Name="ElementName" Value="[dbo].[JobPostActivity].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[JobPostActivity]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserAccountId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="86ed6946-0e67-4668-a563-428aabbaf9f6" ChangeDateTime="11/27/2018 01:33:37">
+    <Property Name="ElementName" Value="[dbo].[JobPostSkillSet].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[JobPostSkillSet]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SkillSetId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a7be3534-5560-4209-bf99-78db5e3130dc" ChangeDateTime="11/27/2018 01:48:33">
+    <Property Name="ElementName" Value="[dbo].[JobPost].[PostById]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[JobPost]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PostedById" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="5caec9a5-b848-4a50-afb9-1d53c0e4f5d1" ChangeDateTime="11/27/2018 01:57:50">
+    <Property Name="ElementName" Value="[dbo].[TalentSkillSet].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TalentSkillSet]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserAccountId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="138c5f67-cfa4-451a-b8f9-7eb39bf3d560" ChangeDateTime="11/27/2018 02:02:15">
+    <Property Name="ElementName" Value="[dbo].[TalentProfile].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TalentProfile]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserAccountId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="16545aa6-602d-4491-ae01-9cb2e4167054" ChangeDateTime="11/27/2018 02:11:51">
+    <Property Name="ElementName" Value="[dbo].[ExperienceDetails].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ExperienceDetails]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserAccountId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8b589c75-3187-4e7c-9942-c78f87e107e8" ChangeDateTime="11/27/2018 02:14:41">
+    <Property Name="ElementName" Value="[dbo].[EducationDetail].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[EducationDetail]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserAccountId" />
+  </Operation>
+</Operations>
