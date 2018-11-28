@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using TheHunt.Data;
+using TheHunt.DomainModel.Models;
 
 namespace TheHunt.Host.ApiControllers
 {

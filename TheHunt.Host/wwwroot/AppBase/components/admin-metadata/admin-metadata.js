@@ -8,21 +8,27 @@ var TheHunt;
         controller: 'AdminMetadataController'
     };
     var AdminMetadataController = /** @class */ (function () {
-        function AdminMetadataController(theHuntClient) {
+        function AdminMetadataController(theHuntClient, toastr) {
             var _this = this;
             this.$onInit = function () {
-                _this.businessStream = new BusinessStream();
             };
             this.SaveBusinessStream = function () {
-                _this.businessStream.businessStreamName = "Information Technology";
-                _this.businessStream.id = -1;
-                _this.theHuntClient.saveBusinessStream(_this.businessStream).then(function (businessStream) {
-                    _this.businessStream = businessStream;
-                });
+                if (_this.businessStreamName) {
+                    _this.businessStream = new BusinessStream();
+                    _this.businessStream.businessStreamName = _this.businessStreamName;
+                    _this.theHuntClient.saveBusinessStream(_this.businessStream).then(function (businessStream) {
+                        _this.businessStream = businessStream;
+                        _this.toastr.success('You successfully saved a BusinessStream');
+                    });
+                }
+                else {
+                    _this.toastr.error('Please enter a Business Stream Name');
+                }
             };
             this.theHuntClient = theHuntClient;
+            this.toastr = toastr;
         }
-        AdminMetadataController.$inject = ['TheHuntClient'];
+        AdminMetadataController.$inject = ['TheHuntClient', 'toastr'];
         return AdminMetadataController;
     }());
     angular.module('angularApp')

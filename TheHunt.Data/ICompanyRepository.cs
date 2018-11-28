@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
-using TheHunt.Host;
+using TheHunt.EntityFrameworkGenerator.Models;
 
 namespace TheHunt.Data
 {
     public interface ICompanyRepository
     {
-        Task<BusinessStream> CreateBusinessStream(BusinessStream businessStream);
+        Task<DomainModel.Models.BusinessStream> CreateBusinessStream(DomainModel.Models.BusinessStream businessStream);
 
         Task<Company> CreateCompany(Company company);
     }

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using TheHunt.Host;
+using TheHunt.EntityFrameworkGenerator.Models;
 
 namespace TheHunt.Data.Internal
 {
@@ -15,9 +15,9 @@ namespace TheHunt.Data.Internal
             this.logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
         }
 
-        public async Task<BusinessStream> CreateBusinessStream(BusinessStream businessStream)
+        public async Task<DomainModel.Models.BusinessStream> CreateBusinessStream(DomainModel.Models.BusinessStream businessStream)
         {
-            if (businessStream.Id <= 0)
+            if (businessStream.Id == null)
             {
                 var bs = new BusinessStream();
                 bs.BusinessStreamName = businessStream.BusinessStreamName;

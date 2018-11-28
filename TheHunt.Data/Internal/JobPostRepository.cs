@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using TheHunt.Host;
+using TheHunt.EntityFrameworkGenerator.Models;
 
 namespace TheHunt.Data.Internal
 {

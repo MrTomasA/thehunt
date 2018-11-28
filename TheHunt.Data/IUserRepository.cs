@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TheHunt.Host;
+using TheHunt.EntityFrameworkGenerator.Models;
 
 namespace TheHunt.Data
 {

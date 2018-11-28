@@ -16,27 +16,36 @@
     }
 
     class AdminMetadataController implements IAdminMetadataController {
-        public static readonly $inject: string[] = ['TheHuntClient'];
+        public static readonly $inject: string[] = ['TheHuntClient', 'toastr'];
 
         private theHuntClient: ITheHuntClient;
+        private toastr: ng.toastr.IToastrService;
+        private businessStream: BusinessStream;
 
-        public businessStream: BusinessStream;
+        public businessStreamName: string;
 
-        constructor(theHuntClient: ITheHuntClient) {
+        constructor(theHuntClient: ITheHuntClient, toastr: ng.toastr.IToastrService) {
             this.theHuntClient = theHuntClient;
+            this.toastr = toastr;
         }
 
         public $onInit = (): void => {
-            this.businessStream = new BusinessStream()
         }
 
         public SaveBusinessStream = (): void => {
-            this.businessStream.businessStreamName = "Information Technology";
-            this.businessStream.id = -1;
+            if (this.businessStreamName) {
+                this.businessStream = new BusinessStream()
 
-            this.theHuntClient.saveBusinessStream(this.businessStream).then(businessStream => {
-                this.businessStream = businessStream;
-            });
+                this.businessStream.businessStreamName = this.businessStreamName;
+
+                this.theHuntClient.saveBusinessStream(this.businessStream).then(businessStream => {
+                    this.businessStream = businessStream;
+                    this.toastr.success('You successfully saved a BusinessStream');
+                });
+            }
+            else {
+                this.toastr.error('Please enter a Business Stream Name');
+            }
         }
     }
 

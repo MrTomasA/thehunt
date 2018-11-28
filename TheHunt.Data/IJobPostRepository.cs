@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using TheHunt.Host;
+using TheHunt.EntityFrameworkGenerator.Models;
 
 namespace TheHunt.Data
 {

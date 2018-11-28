@@ -1,1 +1,8 @@
-﻿<input type="button" class="btn btn-success" value="Save BusinessStream" ng-click="$ctrl.SaveBusinessStream()" />
+﻿
+<label for="businessStream" class="col-sm-2 col-form-label">BusinessStream Name</label>
+<div class="col-sm-4">
+    <input name="businessStream" class="form-control" type="text" id="businessStreamName" ng-model="$ctrl.businessStreamName" required>
+</div>
+<div class="col-sm-4">
+    <input type="button" class="btn btn-success" value="Save BusinessStream" ng-click="$ctrl.SaveBusinessStream()" />
+</div>

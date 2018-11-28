@@ -8,7 +8,7 @@ using NJsonSchema;
 using NSwag.AspNetCore;
 using TheHunt.Data;
 using TheHunt.DomainModel;
-using TheHunt.Host;
+using TheHunt.EntityFrameworkGenerator.Models;
 using TheHunt.Service;
 
 namespace TheHunt
