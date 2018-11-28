@@ -32,7 +32,7 @@
 
         public SaveBusinessStream = (): void => {
             this.businessStream.businessStreamName = "Information Technology";
-            this.businessStream.id = 1;
+            this.businessStream.id = -1;
 
             this.theHuntClient.saveBusinessStream(this.businessStream).then(businessStream => {
                 this.businessStream = businessStream;

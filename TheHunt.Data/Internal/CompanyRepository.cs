@@ -17,8 +17,14 @@ namespace TheHunt.Data.Internal
 
         public async Task<BusinessStream> CreateBusinessStream(BusinessStream businessStream)
         {
-            context.BusinessStream.Add(businessStream);
-            await context.SaveChangesAsync();
+            if (businessStream.Id <= 0)
+            {
+                var bs = new BusinessStream();
+                bs.BusinessStreamName = businessStream.BusinessStreamName;
+
+                context.BusinessStream.Add(bs);
+                await context.SaveChangesAsync();
+            }
 
             return businessStream;
         }

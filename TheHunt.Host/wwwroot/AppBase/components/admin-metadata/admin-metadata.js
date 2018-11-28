@@ -15,7 +15,7 @@ var TheHunt;
             };
             this.SaveBusinessStream = function () {
                 _this.businessStream.businessStreamName = "Information Technology";
-                _this.businessStream.id = 1;
+                _this.businessStream.id = -1;
                 _this.theHuntClient.saveBusinessStream(_this.businessStream).then(function (businessStream) {
                     _this.businessStream = businessStream;
                 });

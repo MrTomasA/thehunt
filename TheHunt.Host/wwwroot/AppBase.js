@@ -29,12 +29,12 @@ var TheHunt;
             }
             TheHuntClient.prototype.saveBusinessStream = function (businessStream) {
                 var _this = this;
-                var url_ = this.baseUrl + "/api/Company";
+                var url_ = this.baseUrl + "/api/Company/business-stream";
                 url_ = url_.replace(/[?&]$/, "");
                 var content_ = JSON.stringify(businessStream);
                 var options_ = {
                     url: url_,
-                    method: "GET",
+                    method: "POST",
                     data: content_,
                     transformResponse: [],
                     headers: {
@@ -799,7 +799,7 @@ var TheHunt;
             };
             this.SaveBusinessStream = function () {
                 _this.businessStream.businessStreamName = "Information Technology";
-                _this.businessStream.id = 1;
+                _this.businessStream.id = -1;
                 _this.theHuntClient.saveBusinessStream(_this.businessStream).then(function (businessStream) {
                     _this.businessStream = businessStream;
                 });

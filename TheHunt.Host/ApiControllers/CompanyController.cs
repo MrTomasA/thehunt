@@ -17,7 +17,8 @@ namespace TheHunt.Host.ApiControllers
             this.companyRepository = companyRepository ?? throw new ArgumentNullException(nameof(companyRepository));
         }
 
-        [HttpGet]
+        [HttpPost]
+        [Route("business-stream")]
         [SwaggerOperation("SaveBusinessStream")]
         [ProducesResponseType(typeof(BusinessStream), 201)]
         public async Task<ActionResult<BusinessStream>> SaveBusinessStream(BusinessStream businessStream) => await companyRepository.CreateBusinessStream(businessStream);

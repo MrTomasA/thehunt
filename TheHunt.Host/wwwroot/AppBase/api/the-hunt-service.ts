@@ -25,14 +25,14 @@ export class TheHuntClient implements ITheHuntClient {
     }
 
     saveBusinessStream(businessStream: BusinessStream): ng.IPromise<BusinessStream | null> {
-        let url_ = this.baseUrl + "/api/Company";
+        let url_ = this.baseUrl + "/api/Company/business-stream";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(businessStream);
 
         var options_ = <ng.IRequestConfig>{
             url: url_,
-            method: "GET",
+            method: "POST",
             data: content_,
             transformResponse: [], 
             headers: {
