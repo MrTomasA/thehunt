@@ -16,6 +16,8 @@ namespace TheHunt.Data
             services.AddTransient<IUserRepository, UserRepository>();
 
             services.AddTransient<IJobPostRepository, JobPostRepository>();
+
+            services.AddTransient<ICompanyRepository, CompanyRepository>();
         }
     }
 }

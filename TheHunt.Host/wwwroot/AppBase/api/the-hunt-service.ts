@@ -21,7 +21,7 @@ export class TheHuntClient implements ITheHuntClient {
     constructor($http: ng.IHttpService, $q: ng.IQService, baseUrl?: string) {
         this.http = $http;
         this.q = $q;
-        this.baseUrl = baseUrl ? baseUrl : "http://localhost:54087";
+        this.baseUrl = baseUrl ? baseUrl : "http://localhost:63585";
     }
 
     saveBusinessStream(businessStream: BusinessStream): ng.IPromise<BusinessStream | null> {
