@@ -1,6 +1,6 @@
 using System;
 
-namespace TheHunt.Models
+namespace TheHunt.Host.Models
 {
     public class ErrorViewModel
     {

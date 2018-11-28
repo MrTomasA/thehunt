@@ -1,4 +1,4 @@
-﻿namespace TheHunt.Models
+﻿namespace TheHunt.Host.Models
 {
     public class CheckoutPost : BaseIndexViewModel
     {

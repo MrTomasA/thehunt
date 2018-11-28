@@ -1,7 +1,7 @@
 ﻿{
   "swaggerGenerator": {
     "fromSwagger": {
-      "url": "http://localhost:49849/swagger/v1/swagger.json",
+      "url": "http://localhost:54087/swagger/v1/swagger.json",
       "output": null
     }
   },
@@ -34,7 +34,7 @@
       "importRequiredTypes": false,
       "useGetBaseUrlMethod": false,
       "baseUrlTokenName": "API_BASE_URL",
-      "output": "../TheHunt/wwwroot/appBase/api/the-hunt-service.ts"
+      "output": "../TheHunt.Host/wwwroot/AppBase/api/the-hunt-service.ts"
     }
   }
 }

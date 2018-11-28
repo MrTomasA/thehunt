@@ -4,7 +4,7 @@ namespace TheHunt.ApiControllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class JobPostController : ControllerBase
     {
     }
 }

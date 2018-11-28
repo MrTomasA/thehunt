@@ -1,4 +1,4 @@
-﻿namespace TheHunt.Models
+﻿namespace TheHunt.Host.Models
 {
     public class IndexViewModel : BaseIndexViewModel
     {

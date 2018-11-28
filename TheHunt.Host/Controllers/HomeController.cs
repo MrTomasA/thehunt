@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using TheHunt.Models;
+using TheHunt.Host.Models;
 
 namespace TheHunt.Controllers
 {
@@ -24,13 +24,6 @@ namespace TheHunt.Controllers
             ViewData["Message"] = "Your contact page.";
 
             return View(new ContactViewModel());
-        }
-
-        public IActionResult Checkout()
-        {
-            ViewData["Message"] = "Your Checkout page.";
-
-            return View(new CheckoutViewModel());
         }
 
         public IActionResult Error()

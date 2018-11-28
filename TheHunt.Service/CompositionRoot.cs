@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
+using TheHunt.Service.Internal;
 
 namespace TheHunt.Service
 {
@@ -11,6 +12,8 @@ namespace TheHunt.Service
             {
                 throw new ArgumentNullException(nameof(services));
             }
+
+            services.AddTransient<IUserService, UserService>();
         }
     }
 }

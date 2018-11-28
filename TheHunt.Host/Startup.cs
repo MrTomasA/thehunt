@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using NJsonSchema;
 using NSwag.AspNetCore;
+using TheHunt.Data;
 using TheHunt.DomainModel;
 using TheHunt.Host;
 using TheHunt.Service;
@@ -44,6 +45,8 @@ namespace TheHunt
             services.AddMvc();
 
             services.AddTheHuntService();
+
+            services.AddTheHuntData();
 
             services.AddSwagger();
         }
