@@ -30,6 +30,17 @@ var TheHunt;
                     _this.toastr.error('Please enter a Business Stream Name');
                 }
             };
+            this.CreateCompany = function () {
+                if (_this.company.companyName && _this.company.businessStreamId && _this.company.profileDescription) {
+                    _this.theHuntClient.saveCompany(_this.company).then(function (company) {
+                        _this.company = company;
+                        _this.toastr.success('You successfully saved a Company');
+                    });
+                }
+                else {
+                    _this.toastr.error('Complete required fields to save a company');
+                }
+            };
             this.theHuntClient = theHuntClient;
             this.toastr = toastr;
         }

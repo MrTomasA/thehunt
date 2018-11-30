@@ -59,7 +59,9 @@ namespace TheHunt.Data.Internal
             {
                 var comp = new Company
                 {
-                    CompanyName = company.CompanyName
+                    CompanyName = company.CompanyName,
+                    BusinessStreamId = company.BusinessStreamId,
+                    ProfileDescription = company.ProfileDescription
                 };
 
                 context.Company.Add(comp);

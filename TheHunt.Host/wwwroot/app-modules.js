@@ -5,7 +5,8 @@ var TheHunt;
         'siteConstants',
         'ngAnimate',
         'toastr',
-        'cgBusy'
+        'cgBusy',
+        'jkuri.datepicker'
     ]);
 })(TheHunt || (TheHunt = {}));
 

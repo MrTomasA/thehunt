@@ -14,6 +14,7 @@
 
     export interface IAdminMetadataController extends ng.IController {
         CreateBusinessStream(): void;
+        CreateCompany(): void;
     }
 
     class AdminMetadataController implements IAdminMetadataController {
@@ -52,6 +53,18 @@
             }
             else {
                 this.toastr.error('Please enter a Business Stream Name');
+            }
+        }
+
+        public CreateCompany = (): void => {
+            if (this.company.companyName && this.company.businessStreamId && this.company.profileDescription) {
+                this.theHuntClient.saveCompany(this.company).then(company => {
+                    this.company = company;
+                    this.toastr.success('You successfully saved a Company');
+                });
+            }
+            else {
+                this.toastr.error('Complete required fields to save a company');
             }
         }
     }

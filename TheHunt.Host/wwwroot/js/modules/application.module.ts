@@ -5,6 +5,7 @@
         'siteConstants',
         'ngAnimate',
         'toastr',
-        'cgBusy'
+        'cgBusy',
+        'jkuri.datepicker'
     ]);
 }
