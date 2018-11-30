@@ -60,6 +60,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\AppBase\api\" />
+    <Folder Include="wwwroot\fonts\" />
   </ItemGroup>
 
   <ItemGroup>

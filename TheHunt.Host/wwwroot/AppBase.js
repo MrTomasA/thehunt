@@ -286,6 +286,9 @@ var TheHunt;
             };
             this.CreateCompany = function () {
                 if (_this.company.companyName && _this.company.businessStreamId && _this.company.profileDescription) {
+                    if (_this.company.establishmentDate) {
+                        _this.company.establishmentDate = new Date(_this.company.establishmentDate.toString());
+                    }
                     _this.theHuntClient.saveCompany(_this.company).then(function (company) {
                         _this.company = company;
                         _this.toastr.success('You successfully saved a Company');

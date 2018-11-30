@@ -138,6 +138,30 @@
         ]
     },
     {
+        "outputFileName": "wwwroot/js/moment-with-locales.js",
+        "inputFiles": [
+            "node_modules/moment/min/moment-with-locales.js"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/js/moment-with-locales.min.js",
+        "inputFiles": [
+            "node_modules/moment/min/moment-with-locales.min.js"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/js/angular-moment.js",
+        "inputFiles": [
+            "node_modules/angular-moment/angular-moment.js"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/js/angular-moment.min.js",
+        "inputFiles": [
+            "node_modules/angular-moment/angular-moment.min.js"
+        ]
+    },
+    {
         "outputFileName": "wwwroot/AppBase.js",
         "inputFiles": [
             "wwwroot/AppBase/**/*.js"

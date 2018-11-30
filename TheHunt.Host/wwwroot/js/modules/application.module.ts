@@ -6,6 +6,7 @@
         'ngAnimate',
         'toastr',
         'cgBusy',
+        'angularMoment',
         'jkuri.datepicker'
     ]);
 }

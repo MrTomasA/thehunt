@@ -1,8 +1,16 @@
 ﻿{
-  "version": "1.0.0",
-  "name": "asp.net",
-  "private": true,
-  "compileOnSave": true,
-  "devDependencies": {
-  }
+    "version": "1.0.0",
+    "name": "asp.net",
+    "private": true,
+    "compileOnSave": true,
+    "compilerOptions": {
+        "lib": [
+            "dom",
+            "es5",
+            "es2015.promise"
+        ],
+        "target": "es5"
+    },
+    "devDependencies": {
+    }
 }

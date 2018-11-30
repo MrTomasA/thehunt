@@ -58,6 +58,10 @@
 
         public CreateCompany = (): void => {
             if (this.company.companyName && this.company.businessStreamId && this.company.profileDescription) {
+                if (this.company.establishmentDate) {
+                    this.company.establishmentDate = new Date(this.company.establishmentDate.toString());
+                }
+
                 this.theHuntClient.saveCompany(this.company).then(company => {
                     this.company = company;
                     this.toastr.success('You successfully saved a Company');

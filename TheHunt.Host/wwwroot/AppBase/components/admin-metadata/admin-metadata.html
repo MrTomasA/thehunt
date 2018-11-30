@@ -2,12 +2,16 @@
 <div class="col-xs-12">
     <input type="button" data-toggle="collapse" class="btn btn-success" data-target="#businessStream" value="BusinessStream" />
     <div id="businessStream" class="collapse" style="border:1px solid black; padding:5px; margin:5px;">
-        <label for="businessStream" class="col-sm-2 col-form-label">BusinessStream Name</label>
-        <div class="col-sm-4">
-            <input name="businessStream" class="form-control" type="text" id="businessStreamName" ng-model="$ctrl.businessStream.businessStreamName" required>
+        <div class="row">
+            <label for="businessStream" class="col-sm-2 col-form-label">BusinessStream Name</label>
+            <div class="col-sm-4">
+                <input name="businessStream" class="form-control" type="text" id="businessStreamName" ng-model="$ctrl.businessStream.businessStreamName" required>
+            </div>
         </div>
-        <div class="col-sm-4">
-            <input type="button" class="btn btn-success" value="Create BusinessStream" ng-click="$ctrl.CreateBusinessStream()" />
+        <div class="row">
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-success" value="Create BusinessStream" ng-click="$ctrl.CreateBusinessStream()" />
+            </div>
         </div>
     </div>
 </div>
@@ -20,27 +24,26 @@
     <div id="company" class="collapse" style="border:1px solid black; padding:5px; margin:5px;">
         <div class="row">
             <label for="companyName" class="col-sm-2 col-form-label">Company Name</label>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <input name="companyName" class="form-control" type="text" id="companyName" ng-model="$ctrl.company.companyName" required>
             </div>
         </div>
         <div class="row">
             <label for="companyBusinessStream" class="col-sm-2 col-form-label">Business Stream</label>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <select ng-model="$ctrl.company.businessStreamId" ng-options="obj.id as obj.businessStreamName for obj in $ctrl.businessStreams"></select>
             </div>
         </div>
         <div class="row">
             <label for="companyDescription" class="col-sm-2 col-form-label">Company Description</label>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <textarea ng-model="$ctrl.company.profileDescription" required></textarea>
             </div>
         </div>
         <div class="row">
             <label for="establishmentDate" class="col-sm-2 col-form-label">Establishment Date</label>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <ng-datepicker ng-model="$ctrl.company.establishmentDate"></ng-datepicker>
-                <span ng-bind="$ctrl.company.establishmentDate" style="display: block; margin-top: 5px;"></span>
             </div>
         </div>
         <div class="row">
