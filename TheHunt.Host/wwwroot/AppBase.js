@@ -27,7 +27,7 @@ var TheHunt;
                 this.q = $q;
                 this.baseUrl = baseUrl ? baseUrl : "http://localhost:63585";
             }
-            TheHuntClient.prototype.saveBusinessStream = function (businessStream) {
+            TheHuntClient.prototype.createBusinessStream = function (businessStream) {
                 var _this = this;
                 var url_ = this.baseUrl + "/api/Company/business-stream";
                 url_ = url_.replace(/[?&]$/, "");
@@ -43,14 +43,14 @@ var TheHunt;
                     }
                 };
                 return this.http(options_).then(function (_response) {
-                    return _this.processSaveBusinessStream(_response);
+                    return _this.processCreateBusinessStream(_response);
                 }, function (_response) {
                     if (_response.status)
-                        return _this.processSaveBusinessStream(_response);
+                        return _this.processCreateBusinessStream(_response);
                     throw _response;
                 });
             };
-            TheHuntClient.prototype.processSaveBusinessStream = function (response) {
+            TheHuntClient.prototype.processCreateBusinessStream = function (response) {
                 var status = response.status;
                 if (status === 201) {
                     var _responseText = response.data;
@@ -107,7 +107,7 @@ var TheHunt;
                 }
                 return this.q.resolve(null);
             };
-            TheHuntClient.prototype.saveCompany = function (company) {
+            TheHuntClient.prototype.createCompany = function (company) {
                 var _this = this;
                 var url_ = this.baseUrl + "/api/Company";
                 url_ = url_.replace(/[?&]$/, "");
@@ -123,20 +123,58 @@ var TheHunt;
                     }
                 };
                 return this.http(options_).then(function (_response) {
-                    return _this.processSaveCompany(_response);
+                    return _this.processCreateCompany(_response);
                 }, function (_response) {
                     if (_response.status)
-                        return _this.processSaveCompany(_response);
+                        return _this.processCreateCompany(_response);
                     throw _response;
                 });
             };
-            TheHuntClient.prototype.processSaveCompany = function (response) {
+            TheHuntClient.prototype.processCreateCompany = function (response) {
                 var status = response.status;
                 if (status === 201) {
                     var _responseText = response.data;
                     var result201 = null;
                     var resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                     result201 = resultData201 ? Company.fromJS(resultData201) : null;
+                    return this.q.resolve(result201);
+                }
+                else if (status !== 200 && status !== 204) {
+                    var _responseText = response.data;
+                    return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+                }
+                return this.q.resolve(null);
+            };
+            TheHuntClient.prototype.saveSkillSet = function (skillSet) {
+                var _this = this;
+                var url_ = this.baseUrl + "/api/Talent/skill-set";
+                url_ = url_.replace(/[?&]$/, "");
+                var content_ = JSON.stringify(skillSet);
+                var options_ = {
+                    url: url_,
+                    method: "POST",
+                    data: content_,
+                    transformResponse: [],
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    }
+                };
+                return this.http(options_).then(function (_response) {
+                    return _this.processSaveSkillSet(_response);
+                }, function (_response) {
+                    if (_response.status)
+                        return _this.processSaveSkillSet(_response);
+                    throw _response;
+                });
+            };
+            TheHuntClient.prototype.processSaveSkillSet = function (response) {
+                var status = response.status;
+                if (status === 201) {
+                    var _responseText = response.data;
+                    var result201 = null;
+                    var resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                    result201 = resultData201 ? BusinessStream.fromJS(resultData201) : null;
                     return this.q.resolve(result201);
                 }
                 else if (status !== 200 && status !== 204) {
@@ -214,6 +252,35 @@ var TheHunt;
             return Company;
         }());
         Client.Company = Company;
+        var SkillSet = /** @class */ (function () {
+            function SkillSet(data) {
+                if (data) {
+                    for (var property in data) {
+                        if (data.hasOwnProperty(property))
+                            this[property] = data[property];
+                    }
+                }
+            }
+            SkillSet.prototype.init = function (data) {
+                if (data) {
+                    this.id = data["id"] !== undefined ? data["id"] : null;
+                    this.skillSetName = data["skillSetName"] !== undefined ? data["skillSetName"] : null;
+                }
+            };
+            SkillSet.fromJS = function (data) {
+                var result = new SkillSet();
+                result.init(data);
+                return result;
+            };
+            SkillSet.prototype.toJSON = function (data) {
+                data = typeof data === 'object' ? data : {};
+                data["id"] = this.id !== undefined ? this.id : null;
+                data["skillSetName"] = this.skillSetName !== undefined ? this.skillSetName : null;
+                return data;
+            };
+            return SkillSet;
+        }());
+        Client.SkillSet = SkillSet;
         var SwaggerException = /** @class */ (function (_super) {
             __extends(SwaggerException, _super);
             function SwaggerException(message, status, response, result) {
@@ -275,9 +342,12 @@ var TheHunt;
             };
             this.CreateBusinessStream = function () {
                 if (_this.businessStream.businessStreamName) {
-                    _this.theHuntClient.saveBusinessStream(_this.businessStream).then(function (businessStream) {
+                    _this.theHuntClient.createBusinessStream(_this.businessStream).then(function (businessStream) {
                         _this.businessStream = businessStream;
                         _this.toastr.success('You successfully saved a BusinessStream');
+                    })
+                        .catch(function (error) {
+                        _this.toastr.error('An error occured ' + error);
                     });
                 }
                 else {
@@ -289,13 +359,30 @@ var TheHunt;
                     if (_this.company.establishmentDate) {
                         _this.company.establishmentDate = new Date(_this.company.establishmentDate.toString());
                     }
-                    _this.theHuntClient.saveCompany(_this.company).then(function (company) {
+                    _this.theHuntClient.createCompany(_this.company).then(function (company) {
                         _this.company = company;
                         _this.toastr.success('You successfully saved a Company');
+                    })
+                        .catch(function (error) {
+                        _this.toastr.error('An error occured ' + error);
                     });
                 }
                 else {
                     _this.toastr.error('Complete required fields to save a company');
+                }
+            };
+            this.CreateSkillSet = function () {
+                if (_this.skillSet.skillSetName) {
+                    _this.theHuntClient.saveSkillSet(_this.skillSet).then(function (skillSet) {
+                        _this.skillSet = skillSet;
+                        _this.toastr.success('You successfully saved a SkillSet');
+                    })
+                        .catch(function (error) {
+                        _this.toastr.error('An error occured ' + error);
+                    });
+                }
+                else {
+                    _this.toastr.error('SkillSet Name is required');
                 }
             };
             this.theHuntClient = theHuntClient;

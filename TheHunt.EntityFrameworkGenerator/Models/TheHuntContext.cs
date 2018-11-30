@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace TheHunt.EntityFrameworkGenerator.Models
+namespace TheHunt.Host
 {
     public partial class TheHuntContext : DbContext
     {
@@ -287,7 +287,7 @@ namespace TheHunt.EntityFrameworkGenerator.Models
                     .WithMany(p => p.TalentSkillSet)
                     .HasForeignKey(d => d.UserAccountId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_TalentSkillSet_UserAccount");
+                    .HasConstraintName("FK_TalentSkillSet_TalentProfile");
             });
 
             modelBuilder.Entity<UserAccount>(entity =>

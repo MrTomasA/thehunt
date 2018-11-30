@@ -287,7 +287,7 @@ namespace TheHunt.EntityFrameworkGenerator.Models
                     .WithMany(p => p.TalentSkillSet)
                     .HasForeignKey(d => d.UserAccountId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_TalentSkillSet_UserAccount");
+                    .HasConstraintName("FK_TalentSkillSet_TalentProfile");
             });
 
             modelBuilder.Entity<UserAccount>(entity =>

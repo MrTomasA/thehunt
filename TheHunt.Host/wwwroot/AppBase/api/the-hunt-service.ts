@@ -9,9 +9,10 @@
 namespace TheHunt.Client {
 
 export interface ITheHuntClient {
-    saveBusinessStream(businessStream: BusinessStream): ng.IPromise<BusinessStream | null>;
+    createBusinessStream(businessStream: BusinessStream): ng.IPromise<BusinessStream | null>;
     getAllBusinessStreams(): ng.IPromise<BusinessStream[] | null>;
-    saveCompany(company: Company): ng.IPromise<Company | null>;
+    createCompany(company: Company): ng.IPromise<Company | null>;
+    saveSkillSet(skillSet: SkillSet): ng.IPromise<BusinessStream | null>;
 }
 
 export class TheHuntClient implements ITheHuntClient {
@@ -26,7 +27,7 @@ export class TheHuntClient implements ITheHuntClient {
         this.baseUrl = baseUrl ? baseUrl : "http://localhost:63585";
     }
 
-    saveBusinessStream(businessStream: BusinessStream): ng.IPromise<BusinessStream | null> {
+    createBusinessStream(businessStream: BusinessStream): ng.IPromise<BusinessStream | null> {
         let url_ = this.baseUrl + "/api/Company/business-stream";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -44,15 +45,15 @@ export class TheHuntClient implements ITheHuntClient {
         };
 
         return this.http(options_).then((_response) => {
-            return this.processSaveBusinessStream(_response);
+            return this.processCreateBusinessStream(_response);
         }, (_response) => {
             if (_response.status)
-                return this.processSaveBusinessStream(_response);
+                return this.processCreateBusinessStream(_response);
             throw _response;
         });
     }
 
-    protected processSaveBusinessStream(response: any): ng.IPromise<BusinessStream | null> {
+    protected processCreateBusinessStream(response: any): ng.IPromise<BusinessStream | null> {
         const status = response.status; 
 
         if (status === 201) {
@@ -111,7 +112,7 @@ export class TheHuntClient implements ITheHuntClient {
         return this.q.resolve<BusinessStream[] | null>(<any>null);
     }
 
-    saveCompany(company: Company): ng.IPromise<Company | null> {
+    createCompany(company: Company): ng.IPromise<Company | null> {
         let url_ = this.baseUrl + "/api/Company";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -129,15 +130,15 @@ export class TheHuntClient implements ITheHuntClient {
         };
 
         return this.http(options_).then((_response) => {
-            return this.processSaveCompany(_response);
+            return this.processCreateCompany(_response);
         }, (_response) => {
             if (_response.status)
-                return this.processSaveCompany(_response);
+                return this.processCreateCompany(_response);
             throw _response;
         });
     }
 
-    protected processSaveCompany(response: any): ng.IPromise<Company | null> {
+    protected processCreateCompany(response: any): ng.IPromise<Company | null> {
         const status = response.status; 
 
         if (status === 201) {
@@ -151,6 +152,48 @@ export class TheHuntClient implements ITheHuntClient {
             return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
         }
         return this.q.resolve<Company | null>(<any>null);
+    }
+
+    saveSkillSet(skillSet: SkillSet): ng.IPromise<BusinessStream | null> {
+        let url_ = this.baseUrl + "/api/Talent/skill-set";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(skillSet);
+
+        var options_ = <ng.IRequestConfig>{
+            url: url_,
+            method: "POST",
+            data: content_,
+            transformResponse: [], 
+            headers: {
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http(options_).then((_response) => {
+            return this.processSaveSkillSet(_response);
+        }, (_response) => {
+            if (_response.status)
+                return this.processSaveSkillSet(_response);
+            throw _response;
+        });
+    }
+
+    protected processSaveSkillSet(response: any): ng.IPromise<BusinessStream | null> {
+        const status = response.status; 
+
+        if (status === 201) {
+            const _responseText = response.data;
+            let result201: BusinessStream | null = null;
+            let resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result201 = resultData201 ? BusinessStream.fromJS(resultData201) : <any>null;
+            return this.q.resolve(result201);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.data;
+            return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+        }
+        return this.q.resolve<BusinessStream | null>(<any>null);
     }
 }
 
@@ -246,6 +289,45 @@ export interface ICompany {
     businessStreamId: number;
     establishmentDate?: Date | null;
     companyWebsiteUrl?: string | null;
+}
+
+export class SkillSet implements ISkillSet {
+    id?: number | null;
+    skillSetName?: string | null;
+
+    constructor(data?: ISkillSet) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"] !== undefined ? data["id"] : <any>null;
+            this.skillSetName = data["skillSetName"] !== undefined ? data["skillSetName"] : <any>null;
+        }
+    }
+
+    static fromJS(data: any): SkillSet {
+        let result = new SkillSet();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id !== undefined ? this.id : <any>null;
+        data["skillSetName"] = this.skillSetName !== undefined ? this.skillSetName : <any>null;
+        return data; 
+    }
+}
+
+export interface ISkillSet {
+    id?: number | null;
+    skillSetName?: string | null;
 }
 
 export class SwaggerException extends Error {

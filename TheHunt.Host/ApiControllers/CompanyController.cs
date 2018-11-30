@@ -21,9 +21,9 @@ namespace TheHunt.Host.ApiControllers
 
         [HttpPost]
         [Route("business-stream")]
-        [SwaggerOperation("SaveBusinessStream")]
+        [SwaggerOperation(nameof(CreateBusinessStream))]
         [ProducesResponseType(typeof(BusinessStream), 201)]
-        public async Task<ActionResult<BusinessStream>> SaveBusinessStream([FromBody]BusinessStream businessStream) => await companyRepository.CreateBusinessStream(businessStream);
+        public async Task<ActionResult<BusinessStream>> CreateBusinessStream([FromBody]BusinessStream businessStream) => await companyRepository.CreateBusinessStream(businessStream);
 
         [HttpGet]
         [Route("business-stream")]
@@ -32,8 +32,8 @@ namespace TheHunt.Host.ApiControllers
         public IEnumerable<BusinessStream> GetAllBusinessStreams() => companyRepository.GetBusinessStreams();
 
         [HttpPost]
-        [SwaggerOperation("SaveCompany")]
+        [SwaggerOperation(nameof(CreateCompany))]
         [ProducesResponseType(typeof(Company), 201)]
-        public async Task<ActionResult<Company>> SaveComapny([FromBody]Company company) => await companyRepository.CreateCompany(company);
+        public async Task<ActionResult<Company>> CreateCompany([FromBody]Company company) => await companyRepository.CreateCompany(company);
     }
 }

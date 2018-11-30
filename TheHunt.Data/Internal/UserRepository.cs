@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using TheHunt.EntityFrameworkGenerator.Models;
@@ -32,6 +33,24 @@ namespace TheHunt.Data.Internal
                 .Include(s => s.UserLog)
                 .Where(m => m.Id == id)
                 .FirstOrDefault();
+        }
+
+        public async Task<DomainModel.Models.SkillSet> CreateSkillSet(DomainModel.Models.SkillSet skillSet)
+        {
+            if (skillSet.Id == null)
+            {
+                var ss = new SkillSet
+                {
+                    SkillSetName = skillSet.SkillSetName
+                };
+
+                context.SkillSet.Add(ss);
+                await context.SaveChangesAsync();
+
+                skillSet.Id = ss.Id;
+            }
+
+            return skillSet;
         }
     }
 }

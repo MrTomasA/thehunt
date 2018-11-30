@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TheHunt.EntityFrameworkGenerator.Models
+namespace TheHunt.Host
 {
     public partial class UserAccount
     {
@@ -11,7 +11,6 @@ namespace TheHunt.EntityFrameworkGenerator.Models
             ExperienceDetails = new HashSet<ExperienceDetails>();
             JobPost = new HashSet<JobPost>();
             JobPostActivity = new HashSet<JobPostActivity>();
-            TalentSkillSet = new HashSet<TalentSkillSet>();
         }
 
         public int Id { get; set; }
@@ -31,6 +30,5 @@ namespace TheHunt.EntityFrameworkGenerator.Models
         public ICollection<ExperienceDetails> ExperienceDetails { get; set; }
         public ICollection<JobPost> JobPost { get; set; }
         public ICollection<JobPostActivity> JobPostActivity { get; set; }
-        public ICollection<TalentSkillSet> TalentSkillSet { get; set; }
     }
 }

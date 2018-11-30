@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TheHunt.EntityFrameworkGenerator.Models
+namespace TheHunt.Host
 {
     public partial class TalentSkillSet
     {
@@ -10,6 +10,6 @@ namespace TheHunt.EntityFrameworkGenerator.Models
         public int SkillLevel { get; set; }
 
         public SkillSet SkillSet { get; set; }
-        public UserAccount UserAccount { get; set; }
+        public TalentProfile UserAccount { get; set; }
     }
 }

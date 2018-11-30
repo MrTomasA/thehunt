@@ -4,6 +4,7 @@
     import ITheHuntClient = TheHunt.Client.ITheHuntClient;
     import BusinessStream = TheHunt.Client.BusinessStream;
     import Company = TheHunt.Client.Company;
+    import SkillSet = TheHunt.Client.SkillSet;
 
     const AdminMetadata: ng.IComponentOptions = {
         bindings: {
@@ -15,6 +16,7 @@
     export interface IAdminMetadataController extends ng.IController {
         CreateBusinessStream(): void;
         CreateCompany(): void;
+        CreateSkillSet(): void;
     }
 
     class AdminMetadataController implements IAdminMetadataController {
@@ -27,6 +29,8 @@
         public businessStreams: BusinessStream[];
 
         public company: Company;
+
+        public skillSet: SkillSet;
 
         constructor(theHuntClient: ITheHuntClient, toastr: ng.toastr.IToastrService) {
             this.theHuntClient = theHuntClient;
@@ -46,9 +50,12 @@
         public CreateBusinessStream = (): void => {
             if (this.businessStream.businessStreamName) {
 
-                this.theHuntClient.saveBusinessStream(this.businessStream).then(businessStream => {
+                this.theHuntClient.createBusinessStream(this.businessStream).then(businessStream => {
                     this.businessStream = businessStream;
                     this.toastr.success('You successfully saved a BusinessStream');
+                })
+                .catch(error => {
+                    this.toastr.error('An error occured ' + error);
                 });
             }
             else {
@@ -62,13 +69,31 @@
                     this.company.establishmentDate = new Date(this.company.establishmentDate.toString());
                 }
 
-                this.theHuntClient.saveCompany(this.company).then(company => {
+                this.theHuntClient.createCompany(this.company).then(company => {
                     this.company = company;
                     this.toastr.success('You successfully saved a Company');
+                })
+                .catch(error => {
+                    this.toastr.error('An error occured ' + error);
                 });
             }
             else {
                 this.toastr.error('Complete required fields to save a company');
+            }
+        }
+
+        public CreateSkillSet = (): void => {
+            if (this.skillSet.skillSetName) {
+                this.theHuntClient.saveSkillSet(this.skillSet).then(skillSet => {
+                    this.skillSet = skillSet;
+                    this.toastr.success('You successfully saved a SkillSet');
+                })
+                    .catch(error => {
+                        this.toastr.error('An error occured ' + error);
+                    });
+            }
+            else {
+                this.toastr.error('SkillSet Name is required');
             }
         }
     }

@@ -21,9 +21,12 @@ var TheHunt;
             };
             this.CreateBusinessStream = function () {
                 if (_this.businessStream.businessStreamName) {
-                    _this.theHuntClient.saveBusinessStream(_this.businessStream).then(function (businessStream) {
+                    _this.theHuntClient.createBusinessStream(_this.businessStream).then(function (businessStream) {
                         _this.businessStream = businessStream;
                         _this.toastr.success('You successfully saved a BusinessStream');
+                    })
+                        .catch(function (error) {
+                        _this.toastr.error('An error occured ' + error);
                     });
                 }
                 else {
@@ -35,13 +38,30 @@ var TheHunt;
                     if (_this.company.establishmentDate) {
                         _this.company.establishmentDate = new Date(_this.company.establishmentDate.toString());
                     }
-                    _this.theHuntClient.saveCompany(_this.company).then(function (company) {
+                    _this.theHuntClient.createCompany(_this.company).then(function (company) {
                         _this.company = company;
                         _this.toastr.success('You successfully saved a Company');
+                    })
+                        .catch(function (error) {
+                        _this.toastr.error('An error occured ' + error);
                     });
                 }
                 else {
                     _this.toastr.error('Complete required fields to save a company');
+                }
+            };
+            this.CreateSkillSet = function () {
+                if (_this.skillSet.skillSetName) {
+                    _this.theHuntClient.saveSkillSet(_this.skillSet).then(function (skillSet) {
+                        _this.skillSet = skillSet;
+                        _this.toastr.success('You successfully saved a SkillSet');
+                    })
+                        .catch(function (error) {
+                        _this.toastr.error('An error occured ' + error);
+                    });
+                }
+                else {
+                    _this.toastr.error('SkillSet Name is required');
                 }
             };
             this.theHuntClient = theHuntClient;

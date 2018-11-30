@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TheHunt.EntityFrameworkGenerator.Models
+namespace TheHunt.Host
 {
     public partial class ExperienceDetails
     {
