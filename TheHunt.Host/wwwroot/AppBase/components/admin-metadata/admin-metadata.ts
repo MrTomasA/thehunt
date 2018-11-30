@@ -3,6 +3,7 @@
 
     import ITheHuntClient = TheHunt.Client.ITheHuntClient;
     import BusinessStream = TheHunt.Client.BusinessStream;
+    import Company = TheHunt.Client.Company;
 
     const AdminMetadata: ng.IComponentOptions = {
         bindings: {
@@ -12,7 +13,7 @@
     }
 
     export interface IAdminMetadataController extends ng.IController {
-        SaveBusinessStream(): void;
+        CreateBusinessStream(): void;
     }
 
     class AdminMetadataController implements IAdminMetadataController {
@@ -20,9 +21,11 @@
 
         private theHuntClient: ITheHuntClient;
         private toastr: ng.toastr.IToastrService;
-        private businessStream: BusinessStream;
 
-        public businessStreamName: string;
+        public businessStream: BusinessStream;
+        public businessStreams: BusinessStream[];
+
+        public company: Company;
 
         constructor(theHuntClient: ITheHuntClient, toastr: ng.toastr.IToastrService) {
             this.theHuntClient = theHuntClient;
@@ -30,13 +33,17 @@
         }
 
         public $onInit = (): void => {
+            this.businessStream = new BusinessStream();
+            this.company = new Company();
+            this.businessStreams = [];
+
+            this.theHuntClient.getAllBusinessStreams().then(businessStreams => {
+                this.businessStreams = businessStreams;
+            });
         }
 
-        public SaveBusinessStream = (): void => {
-            if (this.businessStreamName) {
-                this.businessStream = new BusinessStream()
-
-                this.businessStream.businessStreamName = this.businessStreamName;
+        public CreateBusinessStream = (): void => {
+            if (this.businessStream.businessStreamName) {
 
                 this.theHuntClient.saveBusinessStream(this.businessStream).then(businessStream => {
                     this.businessStream = businessStream;

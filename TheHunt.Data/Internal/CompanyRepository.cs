@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using TheHunt.EntityFrameworkGenerator.Models;
 
@@ -19,20 +21,52 @@ namespace TheHunt.Data.Internal
         {
             if (businessStream.Id == null)
             {
-                var bs = new BusinessStream();
-                bs.BusinessStreamName = businessStream.BusinessStreamName;
+                var bs = new BusinessStream
+                {
+                    BusinessStreamName = businessStream.BusinessStreamName
+                };
 
                 context.BusinessStream.Add(bs);
                 await context.SaveChangesAsync();
+
+                businessStream.Id = bs.Id;
             }
 
             return businessStream;
         }
 
-        public async Task<Company> CreateCompany(Company company)
+        public IEnumerable<DomainModel.Models.BusinessStream> GetBusinessStreams()
         {
-            context.Company.Add(company);
-            await context.SaveChangesAsync();
+            var results = new List<DomainModel.Models.BusinessStream>();
+
+            var businessStreamsEf = context.BusinessStream.ToList();
+
+            foreach (var item in businessStreamsEf)
+            {
+                results.Add(new DomainModel.Models.BusinessStream
+                {
+                    Id = item.Id,
+                    BusinessStreamName = item.BusinessStreamName
+                });
+            }
+
+            return results;
+        }
+
+        public async Task<DomainModel.Models.Company> CreateCompany(DomainModel.Models.Company company)
+        {
+            if (company.Id == null)
+            {
+                var comp = new Company
+                {
+                    CompanyName = company.CompanyName
+                };
+
+                context.Company.Add(comp);
+                await context.SaveChangesAsync();
+
+                company.Id = comp.Id;
+            }
 
             return company;
         }

@@ -1,8 +1,39 @@
 ﻿
-<label for="businessStream" class="col-sm-2 col-form-label">BusinessStream Name</label>
-<div class="col-sm-4">
-    <input name="businessStream" class="form-control" type="text" id="businessStreamName" ng-model="$ctrl.businessStreamName" required>
+<div class="col-xs-12">
+    <input type="button" data-toggle="collapse" class="btn btn-success" data-target="#businessStream" value="BusinessStream" />
+    <div id="businessStream" class="collapse">
+        <label for="businessStream" class="col-sm-2 col-form-label">BusinessStream Name</label>
+        <div class="col-sm-4">
+            <input name="businessStream" class="form-control" type="text" id="businessStreamName" ng-model="$ctrl.businessStream.businessStreamName" required>
+        </div>
+        <div class="col-sm-4">
+            <input type="button" class="btn btn-success" value="Create BusinessStream" ng-click="$ctrl.CreateBusinessStream()" />
+        </div>
+    </div>
 </div>
-<div class="col-sm-4">
-    <input type="button" class="btn btn-success" value="Save BusinessStream" ng-click="$ctrl.SaveBusinessStream()" />
+
+<br />
+<br />
+
+<div class="col-xs-12">
+    <input type="button" data-toggle="collapse" class="btn btn-success" data-target="#company" value="Company" />
+    <div id="company" class="collapse" style="border:1px solid black; padding:5px">
+        <div class="row">
+            <label for="companyName" class="col-sm-2 col-form-label">Company Name</label>
+            <div class="col-sm-3">
+                <input name="companyName" class="form-control" type="text" id="companyName" ng-model="$ctrl.company.companyName" required>
+            </div>
+        </div>
+        <div class="row">
+            <label for="companyBusinessStream" class="col-sm-2 col-form-label">Business Stream</label>
+            <div class="col-sm-3">
+                <select ng-model="$ctrl.company.businessStream" ng-options="businessStream.businessStreamName for businessStream in $ctrl.businessStreams"></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <input type="button" class="btn btn-success" value="Create Company" ng-click="$ctrl.CreateCompany()" />
+            </div>
+        </div>
+    </div>
 </div>

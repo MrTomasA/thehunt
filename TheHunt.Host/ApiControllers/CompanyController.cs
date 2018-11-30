@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
@@ -22,6 +23,17 @@ namespace TheHunt.Host.ApiControllers
         [Route("business-stream")]
         [SwaggerOperation("SaveBusinessStream")]
         [ProducesResponseType(typeof(BusinessStream), 201)]
-        public async Task<ActionResult<BusinessStream>> SaveBusinessStream(BusinessStream businessStream) => await companyRepository.CreateBusinessStream(businessStream);
+        public async Task<ActionResult<BusinessStream>> SaveBusinessStream([FromBody]BusinessStream businessStream) => await companyRepository.CreateBusinessStream(businessStream);
+
+        [HttpGet]
+        [Route("business-stream")]
+        [SwaggerOperation(nameof(GetAllBusinessStreams))]
+        [ProducesResponseType(typeof(IEnumerable<BusinessStream>), 200)]
+        public IEnumerable<BusinessStream> GetAllBusinessStreams() => companyRepository.GetBusinessStreams();
+
+        [HttpPost]
+        [SwaggerOperation("SaveCompany")]
+        [ProducesResponseType(typeof(Company), 201)]
+        public async Task<ActionResult<Company>> SaveComapny([FromBody]Company company) => await companyRepository.CreateCompany(company);
     }
 }

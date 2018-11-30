@@ -65,6 +65,86 @@ var TheHunt;
                 }
                 return this.q.resolve(null);
             };
+            TheHuntClient.prototype.getAllBusinessStreams = function () {
+                var _this = this;
+                var url_ = this.baseUrl + "/api/Company/business-stream";
+                url_ = url_.replace(/[?&]$/, "");
+                var options_ = {
+                    url: url_,
+                    method: "GET",
+                    transformResponse: [],
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    }
+                };
+                return this.http(options_).then(function (_response) {
+                    return _this.processGetAllBusinessStreams(_response);
+                }, function (_response) {
+                    if (_response.status)
+                        return _this.processGetAllBusinessStreams(_response);
+                    throw _response;
+                });
+            };
+            TheHuntClient.prototype.processGetAllBusinessStreams = function (response) {
+                var status = response.status;
+                if (status === 200) {
+                    var _responseText = response.data;
+                    var result200 = null;
+                    var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                    if (resultData200 && resultData200.constructor === Array) {
+                        result200 = [];
+                        for (var _i = 0, resultData200_1 = resultData200; _i < resultData200_1.length; _i++) {
+                            var item = resultData200_1[_i];
+                            result200.push(BusinessStream.fromJS(item));
+                        }
+                    }
+                    return this.q.resolve(result200);
+                }
+                else if (status !== 200 && status !== 204) {
+                    var _responseText = response.data;
+                    return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+                }
+                return this.q.resolve(null);
+            };
+            TheHuntClient.prototype.saveCompany = function (company) {
+                var _this = this;
+                var url_ = this.baseUrl + "/api/Company";
+                url_ = url_.replace(/[?&]$/, "");
+                var content_ = JSON.stringify(company);
+                var options_ = {
+                    url: url_,
+                    method: "POST",
+                    data: content_,
+                    transformResponse: [],
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    }
+                };
+                return this.http(options_).then(function (_response) {
+                    return _this.processSaveCompany(_response);
+                }, function (_response) {
+                    if (_response.status)
+                        return _this.processSaveCompany(_response);
+                    throw _response;
+                });
+            };
+            TheHuntClient.prototype.processSaveCompany = function (response) {
+                var status = response.status;
+                if (status === 201) {
+                    var _responseText = response.data;
+                    var result201 = null;
+                    var resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                    result201 = resultData201 ? Company.fromJS(resultData201) : null;
+                    return this.q.resolve(result201);
+                }
+                else if (status !== 200 && status !== 204) {
+                    var _responseText = response.data;
+                    return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+                }
+                return this.q.resolve(null);
+            };
             return TheHuntClient;
         }());
         Client.TheHuntClient = TheHuntClient;
@@ -97,6 +177,43 @@ var TheHunt;
             return BusinessStream;
         }());
         Client.BusinessStream = BusinessStream;
+        var Company = /** @class */ (function () {
+            function Company(data) {
+                if (data) {
+                    for (var property in data) {
+                        if (data.hasOwnProperty(property))
+                            this[property] = data[property];
+                    }
+                }
+            }
+            Company.prototype.init = function (data) {
+                if (data) {
+                    this.id = data["id"] !== undefined ? data["id"] : null;
+                    this.companyName = data["companyName"] !== undefined ? data["companyName"] : null;
+                    this.profileDescription = data["profileDescription"] !== undefined ? data["profileDescription"] : null;
+                    this.businessStreamId = data["businessStreamId"] !== undefined ? data["businessStreamId"] : null;
+                    this.establishmentDate = data["establishmentDate"] ? new Date(data["establishmentDate"].toString()) : null;
+                    this.companyWebsiteUrl = data["companyWebsiteUrl"] !== undefined ? data["companyWebsiteUrl"] : null;
+                }
+            };
+            Company.fromJS = function (data) {
+                var result = new Company();
+                result.init(data);
+                return result;
+            };
+            Company.prototype.toJSON = function (data) {
+                data = typeof data === 'object' ? data : {};
+                data["id"] = this.id !== undefined ? this.id : null;
+                data["companyName"] = this.companyName !== undefined ? this.companyName : null;
+                data["profileDescription"] = this.profileDescription !== undefined ? this.profileDescription : null;
+                data["businessStreamId"] = this.businessStreamId !== undefined ? this.businessStreamId : null;
+                data["establishmentDate"] = this.establishmentDate ? this.establishmentDate.toISOString() : null;
+                data["companyWebsiteUrl"] = this.companyWebsiteUrl !== undefined ? this.companyWebsiteUrl : null;
+                return data;
+            };
+            return Company;
+        }());
+        Client.Company = Company;
         var SwaggerException = /** @class */ (function (_super) {
             __extends(SwaggerException, _super);
             function SwaggerException(message, status, response, result) {

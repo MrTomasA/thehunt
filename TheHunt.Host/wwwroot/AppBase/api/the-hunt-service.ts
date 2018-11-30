@@ -10,6 +10,8 @@ namespace TheHunt.Client {
 
 export interface ITheHuntClient {
     saveBusinessStream(businessStream: BusinessStream): ng.IPromise<BusinessStream | null>;
+    getAllBusinessStreams(): ng.IPromise<BusinessStream[] | null>;
+    saveCompany(company: Company): ng.IPromise<Company | null>;
 }
 
 export class TheHuntClient implements ITheHuntClient {
@@ -65,6 +67,91 @@ export class TheHuntClient implements ITheHuntClient {
         }
         return this.q.resolve<BusinessStream | null>(<any>null);
     }
+
+    getAllBusinessStreams(): ng.IPromise<BusinessStream[] | null> {
+        let url_ = this.baseUrl + "/api/Company/business-stream";
+        url_ = url_.replace(/[?&]$/, "");
+
+        var options_ = <ng.IRequestConfig>{
+            url: url_,
+            method: "GET",
+            transformResponse: [], 
+            headers: {
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http(options_).then((_response) => {
+            return this.processGetAllBusinessStreams(_response);
+        }, (_response) => {
+            if (_response.status)
+                return this.processGetAllBusinessStreams(_response);
+            throw _response;
+        });
+    }
+
+    protected processGetAllBusinessStreams(response: any): ng.IPromise<BusinessStream[] | null> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const _responseText = response.data;
+            let result200: BusinessStream[] | null = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(BusinessStream.fromJS(item));
+            }
+            return this.q.resolve(result200);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.data;
+            return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+        }
+        return this.q.resolve<BusinessStream[] | null>(<any>null);
+    }
+
+    saveCompany(company: Company): ng.IPromise<Company | null> {
+        let url_ = this.baseUrl + "/api/Company";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(company);
+
+        var options_ = <ng.IRequestConfig>{
+            url: url_,
+            method: "POST",
+            data: content_,
+            transformResponse: [], 
+            headers: {
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http(options_).then((_response) => {
+            return this.processSaveCompany(_response);
+        }, (_response) => {
+            if (_response.status)
+                return this.processSaveCompany(_response);
+            throw _response;
+        });
+    }
+
+    protected processSaveCompany(response: any): ng.IPromise<Company | null> {
+        const status = response.status; 
+
+        if (status === 201) {
+            const _responseText = response.data;
+            let result201: Company | null = null;
+            let resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result201 = resultData201 ? Company.fromJS(resultData201) : <any>null;
+            return this.q.resolve(result201);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.data;
+            return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+        }
+        return this.q.resolve<Company | null>(<any>null);
+    }
 }
 
 export class BusinessStream implements IBusinessStream {
@@ -104,6 +191,61 @@ export class BusinessStream implements IBusinessStream {
 export interface IBusinessStream {
     id?: number | null;
     businessStreamName?: string | null;
+}
+
+export class Company implements ICompany {
+    id?: number | null;
+    companyName?: string | null;
+    profileDescription?: string | null;
+    businessStreamId: number;
+    establishmentDate?: Date | null;
+    companyWebsiteUrl?: string | null;
+
+    constructor(data?: ICompany) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"] !== undefined ? data["id"] : <any>null;
+            this.companyName = data["companyName"] !== undefined ? data["companyName"] : <any>null;
+            this.profileDescription = data["profileDescription"] !== undefined ? data["profileDescription"] : <any>null;
+            this.businessStreamId = data["businessStreamId"] !== undefined ? data["businessStreamId"] : <any>null;
+            this.establishmentDate = data["establishmentDate"] ? new Date(data["establishmentDate"].toString()) : <any>null;
+            this.companyWebsiteUrl = data["companyWebsiteUrl"] !== undefined ? data["companyWebsiteUrl"] : <any>null;
+        }
+    }
+
+    static fromJS(data: any): Company {
+        let result = new Company();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id !== undefined ? this.id : <any>null;
+        data["companyName"] = this.companyName !== undefined ? this.companyName : <any>null;
+        data["profileDescription"] = this.profileDescription !== undefined ? this.profileDescription : <any>null;
+        data["businessStreamId"] = this.businessStreamId !== undefined ? this.businessStreamId : <any>null;
+        data["establishmentDate"] = this.establishmentDate ? this.establishmentDate.toISOString() : <any>null;
+        data["companyWebsiteUrl"] = this.companyWebsiteUrl !== undefined ? this.companyWebsiteUrl : <any>null;
+        return data; 
+    }
+}
+
+export interface ICompany {
+    id?: number | null;
+    companyName?: string | null;
+    profileDescription?: string | null;
+    businessStreamId: number;
+    establishmentDate?: Date | null;
+    companyWebsiteUrl?: string | null;
 }
 
 export class SwaggerException extends Error {
