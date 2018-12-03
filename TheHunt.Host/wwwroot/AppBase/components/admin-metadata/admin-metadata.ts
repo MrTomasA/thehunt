@@ -5,6 +5,8 @@
     import BusinessStream = TheHunt.Client.BusinessStream;
     import Company = TheHunt.Client.Company;
     import SkillSet = TheHunt.Client.SkillSet;
+    import UserType = TheHunt.Client.UserType;
+    import UserAccount = TheHunt.Client.UserAccount;
 
     const AdminMetadata: ng.IComponentOptions = {
         bindings: {
@@ -17,6 +19,8 @@
         CreateBusinessStream(): void;
         CreateCompany(): void;
         CreateSkillSet(): void;
+        CreateUserType(): void;
+        CreateUserAccount(): void;
     }
 
     class AdminMetadataController implements IAdminMetadataController {
@@ -32,6 +36,13 @@
 
         public skillSet: SkillSet;
 
+        public userType: UserType;
+        public userTypes: UserType[];
+
+        public userAccount: UserAccount;
+
+        public genders: object[];
+
         constructor(theHuntClient: ITheHuntClient, toastr: ng.toastr.IToastrService) {
             this.theHuntClient = theHuntClient;
             this.toastr = toastr;
@@ -40,11 +51,25 @@
         public $onInit = (): void => {
             this.businessStream = new BusinessStream();
             this.company = new Company();
-            this.businessStreams = [];
+            this.skillSet = new SkillSet();
+            this.userType = new UserType();
+            this.userAccount = new UserAccount();
 
-            this.theHuntClient.getAllBusinessStreams().then(businessStreams => {
+            this.businessStreams = [];
+            this.userTypes = [];
+
+            this.theHuntClient.getBusinessStreams().then(businessStreams => {
                 this.businessStreams = businessStreams;
             });
+
+            this.theHuntClient.getUserTypes().then(userTypes => {
+                this.userTypes = userTypes;
+            });
+
+            this.genders =[
+                { "key": "M", "value": "Male" },
+                { "key": "F", "value": "Female" }
+            ]
         }
 
         public CreateBusinessStream = (): void => {
@@ -53,6 +78,9 @@
                 this.theHuntClient.createBusinessStream(this.businessStream).then(businessStream => {
                     this.businessStream = businessStream;
                     this.toastr.success('You successfully saved a BusinessStream');
+                    this.theHuntClient.getBusinessStreams().then(businessStreams => {
+                        this.businessStreams = businessStreams;
+                    });
                 })
                 .catch(error => {
                     this.toastr.error('An error occured ' + error);
@@ -84,7 +112,7 @@
 
         public CreateSkillSet = (): void => {
             if (this.skillSet.skillSetName) {
-                this.theHuntClient.saveSkillSet(this.skillSet).then(skillSet => {
+                this.theHuntClient.createSkillSet(this.skillSet).then(skillSet => {
                     this.skillSet = skillSet;
                     this.toastr.success('You successfully saved a SkillSet');
                 })
@@ -94,6 +122,46 @@
             }
             else {
                 this.toastr.error('SkillSet Name is required');
+            }
+        }
+
+        public CreateUserType = (): void => {
+            if (this.userType.userTypeName) {
+                this.theHuntClient.createUserType(this.userType).then(userType => {
+                    this.userType = userType;
+                    this.toastr.success('You successfully saved a UserType');
+                    this.theHuntClient.getUserTypes().then(userTypes => {
+                        this.userTypes = userTypes;
+                    });
+                })
+                    .catch(error => {
+                        this.toastr.error('An error occured ' + error);
+                    });
+            }
+            else {
+                this.toastr.error('UserType Name is required');
+            }
+        }
+
+        public CreateUserAccount = (): void => {
+            if (this.userAccount.email && this.userAccount.userTypeId) {
+                if (this.userAccount.dateOfBirth) {
+                    this.userAccount.dateOfBirth = new Date(this.userAccount.dateOfBirth.toString());
+                }
+
+                this.userAccount.registrationDate = new Date();
+                this.userAccount.isActive = true;
+
+                this.theHuntClient.createUserAccount(this.userAccount).then(userAccount => {
+                    this.userAccount = userAccount;
+                    this.toastr.success('You successfully saved a User Account');
+                })
+                    .catch(error => {
+                        this.toastr.error('An error occured ' + error);
+                    });
+            }
+            else {
+                this.toastr.error('Complete required fields to save a user account');
             }
         }
     }

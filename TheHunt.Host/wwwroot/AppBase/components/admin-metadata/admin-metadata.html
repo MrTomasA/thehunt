@@ -65,7 +65,9 @@
 <br />
 <br />
 
-<h1>User</h1>
+<hr />
+
+<h1>Talent</h1>
 
 <div class="col-xs-12">
     <input type="button" data-toggle="collapse" class="btn btn-success" data-target="#skillSet" value="SkillSet" />
@@ -79,6 +81,74 @@
         <div class="row">
             <div class="col-sm-6">
                 <input type="button" class="btn btn-success" value="Create SkillSet" ng-click="$ctrl.CreateSkillSet()" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+
+<hr />
+
+<h1>User</h1>
+
+<div class="col-xs-12">
+    <input type="button" data-toggle="collapse" class="btn btn-success" data-target="#userType" value="UserType" />
+    <div id="userType" class="collapse" style="border:1px solid black; padding:5px; margin:5px;">
+        <div class="row">
+            <label for="userType" class="col-sm-2 col-form-label">UserType Name</label>
+            <div class="col-sm-4">
+                <input name="userType" class="form-control" type="text" id="userType" ng-model="$ctrl.userType.userTypeName" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-success" value="Create UserType" ng-click="$ctrl.CreateUserType()" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+
+<div class="col-xs-12">
+    <input type="button" data-toggle="collapse" class="btn btn-success" data-target="#userAccount" value="UserAccount" />
+    <div id="userAccount" class="collapse" style="border:1px solid black; padding:5px; margin:5px;">
+        <div class="row">
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-4">
+                <input name="email" class="form-control" type="email" id="email" ng-model="$ctrl.userAccount.email" required>
+            </div>
+        </div>
+        <div class="row">
+            <label for="userType" class="col-sm-2 col-form-label">User Type</label>
+            <div class="col-sm-4">
+                <select ng-model="$ctrl.userAccount.userTypeId" ng-options="obj.id as obj.userTypeName for obj in $ctrl.userTypes"></select>
+            </div>
+        </div>
+        <div class="row">
+            <label for="gender" class="col-sm-2 col-form-label">Gender</label>
+            <div class="col-sm-4">
+                <select ng-model="$ctrl.userAccount.gender" ng-options="obj.key as obj.value for obj in $ctrl.genders"></select>
+            </div>
+        </div>
+        <div class="row">
+            <label for="dateOfBirth" class="col-sm-2 col-form-label">Date Of Birth</label>
+            <div class="col-sm-4">
+                <ng-datepicker ng-model="$ctrl.userAccount.dateOfBirth"></ng-datepicker>
+            </div>
+        </div>
+        <div class="row">
+            <label for="contactNumber" class="col-sm-2 col-form-label">Contact Number</label>
+            <div class="col-sm-3">
+                <input name="contactNumber" class="form-control" type="tel" id="contactNumber" ng-model="$ctrl.userAccount.contactNumber">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <input type="button" class="btn btn-success" value="Create User Account" ng-click="$ctrl.CreateUserAccount()" />
             </div>
         </div>
     </div>

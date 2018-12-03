@@ -35,22 +35,79 @@ namespace TheHunt.Data.Internal
                 .FirstOrDefault();
         }
 
-        public async Task<DomainModel.Models.SkillSet> CreateSkillSet(DomainModel.Models.SkillSet skillSet)
+        public IList<DomainModel.Models.UserType> GetUserTypes()
         {
-            if (skillSet.Id == null)
+            var results = new List<DomainModel.Models.UserType>();
+
+            var userTypeEf = context.UserType.ToList();
+
+            foreach (var item in userTypeEf)
             {
-                var ss = new SkillSet
-                {
-                    SkillSetName = skillSet.SkillSetName
-                };
-
-                context.SkillSet.Add(ss);
-                await context.SaveChangesAsync();
-
-                skillSet.Id = ss.Id;
+                results.Add(new DomainModel.Models.UserType { Id = item.Id, UserTypeName = item.UserTypeName });
             }
 
-            return skillSet;
+            return results;
+        }
+
+        public async Task<DomainModel.Models.UserType> CreateUserType(DomainModel.Models.UserType userType)
+        {
+            if (userType.Id == null)
+            {
+                var ut = new UserType
+                {
+                    UserTypeName = userType.UserTypeName
+                };
+
+                context.UserType.Add(ut);
+                await context.SaveChangesAsync();
+
+                userType.Id = ut.Id;
+            }
+
+            return userType;
+        }
+
+        public async Task<DomainModel.Models.UserLog> CreateUserLog(DomainModel.Models.UserLog userLog)
+        {
+            if (userLog.UserAccountId > 0)
+            {
+                var ul = new UserLog
+                {
+                    UserAccountId = userLog.UserAccountId,
+                    LastLoginDate = userLog.LastLoginDate,
+                    LastJobApplyDate = userLog.LastJobApplyDate
+                };
+
+                context.UserLog.Add(ul);
+                await context.SaveChangesAsync();
+            }
+
+            return userLog;
+        }
+
+        public async Task<DomainModel.Models.UserAccount> CreateUserAccount(DomainModel.Models.UserAccount userAccount)
+        {
+            if (userAccount.Id == null)
+            {
+                var ua = new UserAccount
+                {
+                    IsActive = userAccount.IsActive,
+                    Gender = userAccount.Gender,
+                    RegistrationDate = userAccount.RegistrationDate,
+                    DateOfBirth = userAccount.DateOfBirth,
+                    ContactNumber = userAccount.ContactNumber,
+                    Email = userAccount.Email,
+                    UserTypeId = userAccount.UserTypeId,
+                    EmailNotificationActive = userAccount.EmailNotificationActive
+                };
+
+                context.UserAccount.Add(ua);
+                await context.SaveChangesAsync();
+
+                userAccount.Id = ua.Id;
+            }
+
+            return userAccount;
         }
     }
 }

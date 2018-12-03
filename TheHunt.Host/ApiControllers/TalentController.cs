@@ -11,14 +11,14 @@ namespace TheHunt.Host.ApiControllers
     [ApiController]
     public class TalentController : ControllerBase
     {
-        private readonly IUserRepository userRepository;
+        private readonly ITalentRepository talentRepository;
 
-        public TalentController(IUserRepository userRepository) => this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+        public TalentController(ITalentRepository talentRepository) => this.talentRepository = talentRepository ?? throw new ArgumentNullException(nameof(talentRepository));
 
         [HttpPost]
         [Route("skill-set")]
-        [SwaggerOperation(nameof(SaveSkillSet))]
+        [SwaggerOperation(nameof(CreateSkillSet))]
         [ProducesResponseType(typeof(BusinessStream), 201)]
-        public async Task<ActionResult<SkillSet>> SaveSkillSet([FromBody]SkillSet skillSet) => await userRepository.CreateSkillSet(skillSet);
+        public async Task<ActionResult<SkillSet>> CreateSkillSet([FromBody]SkillSet skillSet) => await talentRepository.CreateSkillSet(skillSet);
     }
 }

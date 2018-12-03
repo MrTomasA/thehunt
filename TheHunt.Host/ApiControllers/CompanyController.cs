@@ -27,9 +27,9 @@ namespace TheHunt.Host.ApiControllers
 
         [HttpGet]
         [Route("business-stream")]
-        [SwaggerOperation(nameof(GetAllBusinessStreams))]
+        [SwaggerOperation(nameof(GetBusinessStreams))]
         [ProducesResponseType(typeof(IEnumerable<BusinessStream>), 200)]
-        public IEnumerable<BusinessStream> GetAllBusinessStreams() => companyRepository.GetBusinessStreams();
+        public IEnumerable<BusinessStream> GetBusinessStreams() => companyRepository.GetBusinessStreams();
 
         [HttpPost]
         [SwaggerOperation(nameof(CreateCompany))]

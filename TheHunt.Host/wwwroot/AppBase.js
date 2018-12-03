@@ -65,7 +65,7 @@ var TheHunt;
                 }
                 return this.q.resolve(null);
             };
-            TheHuntClient.prototype.getAllBusinessStreams = function () {
+            TheHuntClient.prototype.getBusinessStreams = function () {
                 var _this = this;
                 var url_ = this.baseUrl + "/api/Company/business-stream";
                 url_ = url_.replace(/[?&]$/, "");
@@ -79,14 +79,14 @@ var TheHunt;
                     }
                 };
                 return this.http(options_).then(function (_response) {
-                    return _this.processGetAllBusinessStreams(_response);
+                    return _this.processGetBusinessStreams(_response);
                 }, function (_response) {
                     if (_response.status)
-                        return _this.processGetAllBusinessStreams(_response);
+                        return _this.processGetBusinessStreams(_response);
                     throw _response;
                 });
             };
-            TheHuntClient.prototype.processGetAllBusinessStreams = function (response) {
+            TheHuntClient.prototype.processGetBusinessStreams = function (response) {
                 var status = response.status;
                 if (status === 200) {
                     var _responseText = response.data;
@@ -145,7 +145,7 @@ var TheHunt;
                 }
                 return this.q.resolve(null);
             };
-            TheHuntClient.prototype.saveSkillSet = function (skillSet) {
+            TheHuntClient.prototype.createSkillSet = function (skillSet) {
                 var _this = this;
                 var url_ = this.baseUrl + "/api/Talent/skill-set";
                 url_ = url_.replace(/[?&]$/, "");
@@ -161,20 +161,176 @@ var TheHunt;
                     }
                 };
                 return this.http(options_).then(function (_response) {
-                    return _this.processSaveSkillSet(_response);
+                    return _this.processCreateSkillSet(_response);
                 }, function (_response) {
                     if (_response.status)
-                        return _this.processSaveSkillSet(_response);
+                        return _this.processCreateSkillSet(_response);
                     throw _response;
                 });
             };
-            TheHuntClient.prototype.processSaveSkillSet = function (response) {
+            TheHuntClient.prototype.processCreateSkillSet = function (response) {
                 var status = response.status;
                 if (status === 201) {
                     var _responseText = response.data;
                     var result201 = null;
                     var resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                     result201 = resultData201 ? BusinessStream.fromJS(resultData201) : null;
+                    return this.q.resolve(result201);
+                }
+                else if (status !== 200 && status !== 204) {
+                    var _responseText = response.data;
+                    return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+                }
+                return this.q.resolve(null);
+            };
+            TheHuntClient.prototype.getUserTypes = function () {
+                var _this = this;
+                var url_ = this.baseUrl + "/api/User/user-type";
+                url_ = url_.replace(/[?&]$/, "");
+                var options_ = {
+                    url: url_,
+                    method: "GET",
+                    transformResponse: [],
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    }
+                };
+                return this.http(options_).then(function (_response) {
+                    return _this.processGetUserTypes(_response);
+                }, function (_response) {
+                    if (_response.status)
+                        return _this.processGetUserTypes(_response);
+                    throw _response;
+                });
+            };
+            TheHuntClient.prototype.processGetUserTypes = function (response) {
+                var status = response.status;
+                if (status === 200) {
+                    var _responseText = response.data;
+                    var result200 = null;
+                    var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                    if (resultData200 && resultData200.constructor === Array) {
+                        result200 = [];
+                        for (var _i = 0, resultData200_2 = resultData200; _i < resultData200_2.length; _i++) {
+                            var item = resultData200_2[_i];
+                            result200.push(UserType.fromJS(item));
+                        }
+                    }
+                    return this.q.resolve(result200);
+                }
+                else if (status !== 200 && status !== 204) {
+                    var _responseText = response.data;
+                    return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+                }
+                return this.q.resolve(null);
+            };
+            TheHuntClient.prototype.createUserType = function (userType) {
+                var _this = this;
+                var url_ = this.baseUrl + "/api/User/user-type";
+                url_ = url_.replace(/[?&]$/, "");
+                var content_ = JSON.stringify(userType);
+                var options_ = {
+                    url: url_,
+                    method: "POST",
+                    data: content_,
+                    transformResponse: [],
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    }
+                };
+                return this.http(options_).then(function (_response) {
+                    return _this.processCreateUserType(_response);
+                }, function (_response) {
+                    if (_response.status)
+                        return _this.processCreateUserType(_response);
+                    throw _response;
+                });
+            };
+            TheHuntClient.prototype.processCreateUserType = function (response) {
+                var status = response.status;
+                if (status === 201) {
+                    var _responseText = response.data;
+                    var result201 = null;
+                    var resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                    result201 = resultData201 ? UserType.fromJS(resultData201) : null;
+                    return this.q.resolve(result201);
+                }
+                else if (status !== 200 && status !== 204) {
+                    var _responseText = response.data;
+                    return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+                }
+                return this.q.resolve(null);
+            };
+            TheHuntClient.prototype.createUserLog = function (userLog) {
+                var _this = this;
+                var url_ = this.baseUrl + "/api/User/user-log";
+                url_ = url_.replace(/[?&]$/, "");
+                var content_ = JSON.stringify(userLog);
+                var options_ = {
+                    url: url_,
+                    method: "POST",
+                    data: content_,
+                    transformResponse: [],
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    }
+                };
+                return this.http(options_).then(function (_response) {
+                    return _this.processCreateUserLog(_response);
+                }, function (_response) {
+                    if (_response.status)
+                        return _this.processCreateUserLog(_response);
+                    throw _response;
+                });
+            };
+            TheHuntClient.prototype.processCreateUserLog = function (response) {
+                var status = response.status;
+                if (status === 201) {
+                    var _responseText = response.data;
+                    var result201 = null;
+                    var resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                    result201 = resultData201 ? UserLog.fromJS(resultData201) : null;
+                    return this.q.resolve(result201);
+                }
+                else if (status !== 200 && status !== 204) {
+                    var _responseText = response.data;
+                    return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+                }
+                return this.q.resolve(null);
+            };
+            TheHuntClient.prototype.createUserAccount = function (userAccount) {
+                var _this = this;
+                var url_ = this.baseUrl + "/api/User/user-account";
+                url_ = url_.replace(/[?&]$/, "");
+                var content_ = JSON.stringify(userAccount);
+                var options_ = {
+                    url: url_,
+                    method: "POST",
+                    data: content_,
+                    transformResponse: [],
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    }
+                };
+                return this.http(options_).then(function (_response) {
+                    return _this.processCreateUserAccount(_response);
+                }, function (_response) {
+                    if (_response.status)
+                        return _this.processCreateUserAccount(_response);
+                    throw _response;
+                });
+            };
+            TheHuntClient.prototype.processCreateUserAccount = function (response) {
+                var status = response.status;
+                if (status === 201) {
+                    var _responseText = response.data;
+                    var result201 = null;
+                    var resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                    result201 = resultData201 ? UserAccount.fromJS(resultData201) : null;
                     return this.q.resolve(result201);
                 }
                 else if (status !== 200 && status !== 204) {
@@ -281,6 +437,109 @@ var TheHunt;
             return SkillSet;
         }());
         Client.SkillSet = SkillSet;
+        var UserType = /** @class */ (function () {
+            function UserType(data) {
+                if (data) {
+                    for (var property in data) {
+                        if (data.hasOwnProperty(property))
+                            this[property] = data[property];
+                    }
+                }
+            }
+            UserType.prototype.init = function (data) {
+                if (data) {
+                    this.id = data["id"] !== undefined ? data["id"] : null;
+                    this.userTypeName = data["userTypeName"] !== undefined ? data["userTypeName"] : null;
+                }
+            };
+            UserType.fromJS = function (data) {
+                var result = new UserType();
+                result.init(data);
+                return result;
+            };
+            UserType.prototype.toJSON = function (data) {
+                data = typeof data === 'object' ? data : {};
+                data["id"] = this.id !== undefined ? this.id : null;
+                data["userTypeName"] = this.userTypeName !== undefined ? this.userTypeName : null;
+                return data;
+            };
+            return UserType;
+        }());
+        Client.UserType = UserType;
+        var UserLog = /** @class */ (function () {
+            function UserLog(data) {
+                if (data) {
+                    for (var property in data) {
+                        if (data.hasOwnProperty(property))
+                            this[property] = data[property];
+                    }
+                }
+            }
+            UserLog.prototype.init = function (data) {
+                if (data) {
+                    this.userAccountId = data["userAccountId"] !== undefined ? data["userAccountId"] : null;
+                    this.lastLoginDate = data["lastLoginDate"] ? new Date(data["lastLoginDate"].toString()) : null;
+                    this.lastJobApplyDate = data["lastJobApplyDate"] ? new Date(data["lastJobApplyDate"].toString()) : null;
+                }
+            };
+            UserLog.fromJS = function (data) {
+                var result = new UserLog();
+                result.init(data);
+                return result;
+            };
+            UserLog.prototype.toJSON = function (data) {
+                data = typeof data === 'object' ? data : {};
+                data["userAccountId"] = this.userAccountId !== undefined ? this.userAccountId : null;
+                data["lastLoginDate"] = this.lastLoginDate ? this.lastLoginDate.toISOString() : null;
+                data["lastJobApplyDate"] = this.lastJobApplyDate ? this.lastJobApplyDate.toISOString() : null;
+                return data;
+            };
+            return UserLog;
+        }());
+        Client.UserLog = UserLog;
+        var UserAccount = /** @class */ (function () {
+            function UserAccount(data) {
+                if (data) {
+                    for (var property in data) {
+                        if (data.hasOwnProperty(property))
+                            this[property] = data[property];
+                    }
+                }
+            }
+            UserAccount.prototype.init = function (data) {
+                if (data) {
+                    this.id = data["id"] !== undefined ? data["id"] : null;
+                    this.userTypeId = data["userTypeId"] !== undefined ? data["userTypeId"] : null;
+                    this.email = data["email"] !== undefined ? data["email"] : null;
+                    this.dateOfBirth = data["dateOfBirth"] ? new Date(data["dateOfBirth"].toString()) : null;
+                    this.gender = data["gender"] !== undefined ? data["gender"] : null;
+                    this.isActive = data["isActive"] !== undefined ? data["isActive"] : null;
+                    this.contactNumber = data["contactNumber"] !== undefined ? data["contactNumber"] : null;
+                    this.emailNotificationActive = data["emailNotificationActive"] !== undefined ? data["emailNotificationActive"] : null;
+                    this.registrationDate = data["registrationDate"] ? new Date(data["registrationDate"].toString()) : null;
+                }
+            };
+            UserAccount.fromJS = function (data) {
+                var result = new UserAccount();
+                result.init(data);
+                return result;
+            };
+            UserAccount.prototype.toJSON = function (data) {
+                data = typeof data === 'object' ? data : {};
+                data["id"] = this.id !== undefined ? this.id : null;
+                data["userTypeId"] = this.userTypeId !== undefined ? this.userTypeId : null;
+                data["email"] = this.email !== undefined ? this.email : null;
+                data["dateOfBirth"] = this.dateOfBirth ? this.dateOfBirth.toISOString() : null;
+                data["gender"] = this.gender !== undefined ? this.gender : null;
+                data["isActive"] = this.isActive !== undefined ? this.isActive : null;
+                data["contactNumber"] = this.contactNumber !== undefined ? this.contactNumber : null;
+                data["emailNotificationActive"] = this.emailNotificationActive !== undefined ? this.emailNotificationActive : null;
+                data["registrationDate"] = this.registrationDate ? this.registrationDate.toISOString() : null;
+                return data;
+            };
+            return UserAccount;
+        }());
+        Client.UserAccount = UserAccount;
         var SwaggerException = /** @class */ (function (_super) {
             __extends(SwaggerException, _super);
             function SwaggerException(message, status, response, result) {
@@ -324,6 +583,9 @@ var TheHunt;
     'use strict';
     var BusinessStream = TheHunt.Client.BusinessStream;
     var Company = TheHunt.Client.Company;
+    var SkillSet = TheHunt.Client.SkillSet;
+    var UserType = TheHunt.Client.UserType;
+    var UserAccount = TheHunt.Client.UserAccount;
     var AdminMetadata = {
         bindings: {},
         templateUrl: ['paths', function (paths) { return paths.AppBase + "components/admin-metadata/admin-metadata.html"; }],
@@ -335,16 +597,30 @@ var TheHunt;
             this.$onInit = function () {
                 _this.businessStream = new BusinessStream();
                 _this.company = new Company();
+                _this.skillSet = new SkillSet();
+                _this.userType = new UserType();
+                _this.userAccount = new UserAccount();
                 _this.businessStreams = [];
-                _this.theHuntClient.getAllBusinessStreams().then(function (businessStreams) {
+                _this.userTypes = [];
+                _this.theHuntClient.getBusinessStreams().then(function (businessStreams) {
                     _this.businessStreams = businessStreams;
                 });
+                _this.theHuntClient.getUserTypes().then(function (userTypes) {
+                    _this.userTypes = userTypes;
+                });
+                _this.genders = [
+                    { "key": "M", "value": "Male" },
+                    { "key": "F", "value": "Female" }
+                ];
             };
             this.CreateBusinessStream = function () {
                 if (_this.businessStream.businessStreamName) {
                     _this.theHuntClient.createBusinessStream(_this.businessStream).then(function (businessStream) {
                         _this.businessStream = businessStream;
                         _this.toastr.success('You successfully saved a BusinessStream');
+                        _this.theHuntClient.getBusinessStreams().then(function (businessStreams) {
+                            _this.businessStreams = businessStreams;
+                        });
                     })
                         .catch(function (error) {
                         _this.toastr.error('An error occured ' + error);
@@ -373,7 +649,7 @@ var TheHunt;
             };
             this.CreateSkillSet = function () {
                 if (_this.skillSet.skillSetName) {
-                    _this.theHuntClient.saveSkillSet(_this.skillSet).then(function (skillSet) {
+                    _this.theHuntClient.createSkillSet(_this.skillSet).then(function (skillSet) {
                         _this.skillSet = skillSet;
                         _this.toastr.success('You successfully saved a SkillSet');
                     })
@@ -383,6 +659,42 @@ var TheHunt;
                 }
                 else {
                     _this.toastr.error('SkillSet Name is required');
+                }
+            };
+            this.CreateUserType = function () {
+                if (_this.userType.userTypeName) {
+                    _this.theHuntClient.createUserType(_this.userType).then(function (userType) {
+                        _this.userType = userType;
+                        _this.toastr.success('You successfully saved a UserType');
+                        _this.theHuntClient.getUserTypes().then(function (userTypes) {
+                            _this.userTypes = userTypes;
+                        });
+                    })
+                        .catch(function (error) {
+                        _this.toastr.error('An error occured ' + error);
+                    });
+                }
+                else {
+                    _this.toastr.error('UserType Name is required');
+                }
+            };
+            this.CreateUserAccount = function () {
+                if (_this.userAccount.email && _this.userAccount.userTypeId) {
+                    if (_this.userAccount.dateOfBirth) {
+                        _this.userAccount.dateOfBirth = new Date(_this.userAccount.dateOfBirth.toString());
+                    }
+                    _this.userAccount.registrationDate = new Date();
+                    _this.userAccount.isActive = true;
+                    _this.theHuntClient.createUserAccount(_this.userAccount).then(function (userAccount) {
+                        _this.userAccount = userAccount;
+                        _this.toastr.success('You successfully saved a User Account');
+                    })
+                        .catch(function (error) {
+                        _this.toastr.error('An error occured ' + error);
+                    });
+                }
+                else {
+                    _this.toastr.error('Complete required fields to save a user account');
                 }
             };
             this.theHuntClient = theHuntClient;

@@ -10,9 +10,13 @@ namespace TheHunt.Client {
 
 export interface ITheHuntClient {
     createBusinessStream(businessStream: BusinessStream): ng.IPromise<BusinessStream | null>;
-    getAllBusinessStreams(): ng.IPromise<BusinessStream[] | null>;
+    getBusinessStreams(): ng.IPromise<BusinessStream[] | null>;
     createCompany(company: Company): ng.IPromise<Company | null>;
-    saveSkillSet(skillSet: SkillSet): ng.IPromise<BusinessStream | null>;
+    createSkillSet(skillSet: SkillSet): ng.IPromise<BusinessStream | null>;
+    getUserTypes(): ng.IPromise<UserType[] | null>;
+    createUserType(userType: UserType): ng.IPromise<UserType | null>;
+    createUserLog(userLog: UserLog): ng.IPromise<UserLog | null>;
+    createUserAccount(userAccount: UserAccount): ng.IPromise<UserAccount | null>;
 }
 
 export class TheHuntClient implements ITheHuntClient {
@@ -69,7 +73,7 @@ export class TheHuntClient implements ITheHuntClient {
         return this.q.resolve<BusinessStream | null>(<any>null);
     }
 
-    getAllBusinessStreams(): ng.IPromise<BusinessStream[] | null> {
+    getBusinessStreams(): ng.IPromise<BusinessStream[] | null> {
         let url_ = this.baseUrl + "/api/Company/business-stream";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -84,15 +88,15 @@ export class TheHuntClient implements ITheHuntClient {
         };
 
         return this.http(options_).then((_response) => {
-            return this.processGetAllBusinessStreams(_response);
+            return this.processGetBusinessStreams(_response);
         }, (_response) => {
             if (_response.status)
-                return this.processGetAllBusinessStreams(_response);
+                return this.processGetBusinessStreams(_response);
             throw _response;
         });
     }
 
-    protected processGetAllBusinessStreams(response: any): ng.IPromise<BusinessStream[] | null> {
+    protected processGetBusinessStreams(response: any): ng.IPromise<BusinessStream[] | null> {
         const status = response.status; 
 
         if (status === 200) {
@@ -154,7 +158,7 @@ export class TheHuntClient implements ITheHuntClient {
         return this.q.resolve<Company | null>(<any>null);
     }
 
-    saveSkillSet(skillSet: SkillSet): ng.IPromise<BusinessStream | null> {
+    createSkillSet(skillSet: SkillSet): ng.IPromise<BusinessStream | null> {
         let url_ = this.baseUrl + "/api/Talent/skill-set";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -172,15 +176,15 @@ export class TheHuntClient implements ITheHuntClient {
         };
 
         return this.http(options_).then((_response) => {
-            return this.processSaveSkillSet(_response);
+            return this.processCreateSkillSet(_response);
         }, (_response) => {
             if (_response.status)
-                return this.processSaveSkillSet(_response);
+                return this.processCreateSkillSet(_response);
             throw _response;
         });
     }
 
-    protected processSaveSkillSet(response: any): ng.IPromise<BusinessStream | null> {
+    protected processCreateSkillSet(response: any): ng.IPromise<BusinessStream | null> {
         const status = response.status; 
 
         if (status === 201) {
@@ -194,6 +198,175 @@ export class TheHuntClient implements ITheHuntClient {
             return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
         }
         return this.q.resolve<BusinessStream | null>(<any>null);
+    }
+
+    getUserTypes(): ng.IPromise<UserType[] | null> {
+        let url_ = this.baseUrl + "/api/User/user-type";
+        url_ = url_.replace(/[?&]$/, "");
+
+        var options_ = <ng.IRequestConfig>{
+            url: url_,
+            method: "GET",
+            transformResponse: [], 
+            headers: {
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http(options_).then((_response) => {
+            return this.processGetUserTypes(_response);
+        }, (_response) => {
+            if (_response.status)
+                return this.processGetUserTypes(_response);
+            throw _response;
+        });
+    }
+
+    protected processGetUserTypes(response: any): ng.IPromise<UserType[] | null> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const _responseText = response.data;
+            let result200: UserType[] | null = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(UserType.fromJS(item));
+            }
+            return this.q.resolve(result200);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.data;
+            return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+        }
+        return this.q.resolve<UserType[] | null>(<any>null);
+    }
+
+    createUserType(userType: UserType): ng.IPromise<UserType | null> {
+        let url_ = this.baseUrl + "/api/User/user-type";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(userType);
+
+        var options_ = <ng.IRequestConfig>{
+            url: url_,
+            method: "POST",
+            data: content_,
+            transformResponse: [], 
+            headers: {
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http(options_).then((_response) => {
+            return this.processCreateUserType(_response);
+        }, (_response) => {
+            if (_response.status)
+                return this.processCreateUserType(_response);
+            throw _response;
+        });
+    }
+
+    protected processCreateUserType(response: any): ng.IPromise<UserType | null> {
+        const status = response.status; 
+
+        if (status === 201) {
+            const _responseText = response.data;
+            let result201: UserType | null = null;
+            let resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result201 = resultData201 ? UserType.fromJS(resultData201) : <any>null;
+            return this.q.resolve(result201);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.data;
+            return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+        }
+        return this.q.resolve<UserType | null>(<any>null);
+    }
+
+    createUserLog(userLog: UserLog): ng.IPromise<UserLog | null> {
+        let url_ = this.baseUrl + "/api/User/user-log";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(userLog);
+
+        var options_ = <ng.IRequestConfig>{
+            url: url_,
+            method: "POST",
+            data: content_,
+            transformResponse: [], 
+            headers: {
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http(options_).then((_response) => {
+            return this.processCreateUserLog(_response);
+        }, (_response) => {
+            if (_response.status)
+                return this.processCreateUserLog(_response);
+            throw _response;
+        });
+    }
+
+    protected processCreateUserLog(response: any): ng.IPromise<UserLog | null> {
+        const status = response.status; 
+
+        if (status === 201) {
+            const _responseText = response.data;
+            let result201: UserLog | null = null;
+            let resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result201 = resultData201 ? UserLog.fromJS(resultData201) : <any>null;
+            return this.q.resolve(result201);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.data;
+            return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+        }
+        return this.q.resolve<UserLog | null>(<any>null);
+    }
+
+    createUserAccount(userAccount: UserAccount): ng.IPromise<UserAccount | null> {
+        let url_ = this.baseUrl + "/api/User/user-account";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(userAccount);
+
+        var options_ = <ng.IRequestConfig>{
+            url: url_,
+            method: "POST",
+            data: content_,
+            transformResponse: [], 
+            headers: {
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http(options_).then((_response) => {
+            return this.processCreateUserAccount(_response);
+        }, (_response) => {
+            if (_response.status)
+                return this.processCreateUserAccount(_response);
+            throw _response;
+        });
+    }
+
+    protected processCreateUserAccount(response: any): ng.IPromise<UserAccount | null> {
+        const status = response.status; 
+
+        if (status === 201) {
+            const _responseText = response.data;
+            let result201: UserAccount | null = null;
+            let resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result201 = resultData201 ? UserAccount.fromJS(resultData201) : <any>null;
+            return this.q.resolve(result201);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.data;
+            return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+        }
+        return this.q.resolve<UserAccount | null>(<any>null);
     }
 }
 
@@ -328,6 +501,155 @@ export class SkillSet implements ISkillSet {
 export interface ISkillSet {
     id?: number | null;
     skillSetName?: string | null;
+}
+
+export class UserType implements IUserType {
+    id?: number | null;
+    userTypeName?: string | null;
+
+    constructor(data?: IUserType) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"] !== undefined ? data["id"] : <any>null;
+            this.userTypeName = data["userTypeName"] !== undefined ? data["userTypeName"] : <any>null;
+        }
+    }
+
+    static fromJS(data: any): UserType {
+        let result = new UserType();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id !== undefined ? this.id : <any>null;
+        data["userTypeName"] = this.userTypeName !== undefined ? this.userTypeName : <any>null;
+        return data; 
+    }
+}
+
+export interface IUserType {
+    id?: number | null;
+    userTypeName?: string | null;
+}
+
+export class UserLog implements IUserLog {
+    userAccountId: number;
+    lastLoginDate?: Date | null;
+    lastJobApplyDate?: Date | null;
+
+    constructor(data?: IUserLog) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userAccountId = data["userAccountId"] !== undefined ? data["userAccountId"] : <any>null;
+            this.lastLoginDate = data["lastLoginDate"] ? new Date(data["lastLoginDate"].toString()) : <any>null;
+            this.lastJobApplyDate = data["lastJobApplyDate"] ? new Date(data["lastJobApplyDate"].toString()) : <any>null;
+        }
+    }
+
+    static fromJS(data: any): UserLog {
+        let result = new UserLog();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userAccountId"] = this.userAccountId !== undefined ? this.userAccountId : <any>null;
+        data["lastLoginDate"] = this.lastLoginDate ? this.lastLoginDate.toISOString() : <any>null;
+        data["lastJobApplyDate"] = this.lastJobApplyDate ? this.lastJobApplyDate.toISOString() : <any>null;
+        return data; 
+    }
+}
+
+export interface IUserLog {
+    userAccountId: number;
+    lastLoginDate?: Date | null;
+    lastJobApplyDate?: Date | null;
+}
+
+export class UserAccount implements IUserAccount {
+    id?: number | null;
+    userTypeId: number;
+    email?: string | null;
+    dateOfBirth?: Date | null;
+    gender?: string | null;
+    isActive: boolean;
+    contactNumber?: string | null;
+    emailNotificationActive?: boolean | null;
+    registrationDate: Date;
+
+    constructor(data?: IUserAccount) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"] !== undefined ? data["id"] : <any>null;
+            this.userTypeId = data["userTypeId"] !== undefined ? data["userTypeId"] : <any>null;
+            this.email = data["email"] !== undefined ? data["email"] : <any>null;
+            this.dateOfBirth = data["dateOfBirth"] ? new Date(data["dateOfBirth"].toString()) : <any>null;
+            this.gender = data["gender"] !== undefined ? data["gender"] : <any>null;
+            this.isActive = data["isActive"] !== undefined ? data["isActive"] : <any>null;
+            this.contactNumber = data["contactNumber"] !== undefined ? data["contactNumber"] : <any>null;
+            this.emailNotificationActive = data["emailNotificationActive"] !== undefined ? data["emailNotificationActive"] : <any>null;
+            this.registrationDate = data["registrationDate"] ? new Date(data["registrationDate"].toString()) : <any>null;
+        }
+    }
+
+    static fromJS(data: any): UserAccount {
+        let result = new UserAccount();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id !== undefined ? this.id : <any>null;
+        data["userTypeId"] = this.userTypeId !== undefined ? this.userTypeId : <any>null;
+        data["email"] = this.email !== undefined ? this.email : <any>null;
+        data["dateOfBirth"] = this.dateOfBirth ? this.dateOfBirth.toISOString() : <any>null;
+        data["gender"] = this.gender !== undefined ? this.gender : <any>null;
+        data["isActive"] = this.isActive !== undefined ? this.isActive : <any>null;
+        data["contactNumber"] = this.contactNumber !== undefined ? this.contactNumber : <any>null;
+        data["emailNotificationActive"] = this.emailNotificationActive !== undefined ? this.emailNotificationActive : <any>null;
+        data["registrationDate"] = this.registrationDate ? this.registrationDate.toISOString() : <any>null;
+        return data; 
+    }
+}
+
+export interface IUserAccount {
+    id?: number | null;
+    userTypeId: number;
+    email?: string | null;
+    dateOfBirth?: Date | null;
+    gender?: string | null;
+    isActive: boolean;
+    contactNumber?: string | null;
+    emailNotificationActive?: boolean | null;
+    registrationDate: Date;
 }
 
 export class SwaggerException extends Error {
