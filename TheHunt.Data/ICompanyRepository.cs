@@ -10,5 +10,7 @@ namespace TheHunt.Data
         IEnumerable<DomainModel.Models.BusinessStream> GetBusinessStreams();
 
         Task<DomainModel.Models.Company> CreateCompany(DomainModel.Models.Company company);
+
+        IEnumerable<DomainModel.Models.Company> GetCompanies();
     }
 }

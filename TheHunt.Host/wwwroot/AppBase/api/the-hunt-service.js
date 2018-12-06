@@ -27,6 +27,204 @@ var TheHunt;
                 this.q = $q;
                 this.baseUrl = baseUrl ? baseUrl : "http://localhost:63585";
             }
+            TheHuntClient.prototype.createJobPost = function (jobPost) {
+                var _this = this;
+                var url_ = this.baseUrl + "/api/JobPost";
+                url_ = url_.replace(/[?&]$/, "");
+                var content_ = JSON.stringify(jobPost);
+                var options_ = {
+                    url: url_,
+                    method: "POST",
+                    data: content_,
+                    transformResponse: [],
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    }
+                };
+                return this.http(options_).then(function (_response) {
+                    return _this.processCreateJobPost(_response);
+                }, function (_response) {
+                    if (_response.status)
+                        return _this.processCreateJobPost(_response);
+                    throw _response;
+                });
+            };
+            TheHuntClient.prototype.processCreateJobPost = function (response) {
+                var status = response.status;
+                if (status === 201) {
+                    var _responseText = response.data;
+                    var result201 = null;
+                    var resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                    result201 = resultData201 ? JobPost.fromJS(resultData201) : null;
+                    return this.q.resolve(result201);
+                }
+                else if (status !== 200 && status !== 204) {
+                    var _responseText = response.data;
+                    return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+                }
+                return this.q.resolve(null);
+            };
+            TheHuntClient.prototype.createJobType = function (jobType) {
+                var _this = this;
+                var url_ = this.baseUrl + "/api/JobPost/job-type";
+                url_ = url_.replace(/[?&]$/, "");
+                var content_ = JSON.stringify(jobType);
+                var options_ = {
+                    url: url_,
+                    method: "POST",
+                    data: content_,
+                    transformResponse: [],
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    }
+                };
+                return this.http(options_).then(function (_response) {
+                    return _this.processCreateJobType(_response);
+                }, function (_response) {
+                    if (_response.status)
+                        return _this.processCreateJobType(_response);
+                    throw _response;
+                });
+            };
+            TheHuntClient.prototype.processCreateJobType = function (response) {
+                var status = response.status;
+                if (status === 201) {
+                    var _responseText = response.data;
+                    var result201 = null;
+                    var resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                    result201 = resultData201 ? JobType.fromJS(resultData201) : null;
+                    return this.q.resolve(result201);
+                }
+                else if (status !== 200 && status !== 204) {
+                    var _responseText = response.data;
+                    return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+                }
+                return this.q.resolve(null);
+            };
+            TheHuntClient.prototype.getJobTypes = function () {
+                var _this = this;
+                var url_ = this.baseUrl + "/api/JobPost/job-type";
+                url_ = url_.replace(/[?&]$/, "");
+                var options_ = {
+                    url: url_,
+                    method: "GET",
+                    transformResponse: [],
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    }
+                };
+                return this.http(options_).then(function (_response) {
+                    return _this.processGetJobTypes(_response);
+                }, function (_response) {
+                    if (_response.status)
+                        return _this.processGetJobTypes(_response);
+                    throw _response;
+                });
+            };
+            TheHuntClient.prototype.processGetJobTypes = function (response) {
+                var status = response.status;
+                if (status === 200) {
+                    var _responseText = response.data;
+                    var result200 = null;
+                    var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                    if (resultData200 && resultData200.constructor === Array) {
+                        result200 = [];
+                        for (var _i = 0, resultData200_1 = resultData200; _i < resultData200_1.length; _i++) {
+                            var item = resultData200_1[_i];
+                            result200.push(JobType.fromJS(item));
+                        }
+                    }
+                    return this.q.resolve(result200);
+                }
+                else if (status !== 200 && status !== 204) {
+                    var _responseText = response.data;
+                    return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+                }
+                return this.q.resolve(null);
+            };
+            TheHuntClient.prototype.createJobLocation = function (jobLocation) {
+                var _this = this;
+                var url_ = this.baseUrl + "/api/JobPost/job-location";
+                url_ = url_.replace(/[?&]$/, "");
+                var content_ = JSON.stringify(jobLocation);
+                var options_ = {
+                    url: url_,
+                    method: "POST",
+                    data: content_,
+                    transformResponse: [],
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    }
+                };
+                return this.http(options_).then(function (_response) {
+                    return _this.processCreateJobLocation(_response);
+                }, function (_response) {
+                    if (_response.status)
+                        return _this.processCreateJobLocation(_response);
+                    throw _response;
+                });
+            };
+            TheHuntClient.prototype.processCreateJobLocation = function (response) {
+                var status = response.status;
+                if (status === 201) {
+                    var _responseText = response.data;
+                    var result201 = null;
+                    var resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                    result201 = resultData201 ? JobLocation.fromJS(resultData201) : null;
+                    return this.q.resolve(result201);
+                }
+                else if (status !== 200 && status !== 204) {
+                    var _responseText = response.data;
+                    return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+                }
+                return this.q.resolve(null);
+            };
+            TheHuntClient.prototype.getJobLocations = function () {
+                var _this = this;
+                var url_ = this.baseUrl + "/api/JobPost/job-location";
+                url_ = url_.replace(/[?&]$/, "");
+                var options_ = {
+                    url: url_,
+                    method: "GET",
+                    transformResponse: [],
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    }
+                };
+                return this.http(options_).then(function (_response) {
+                    return _this.processGetJobLocations(_response);
+                }, function (_response) {
+                    if (_response.status)
+                        return _this.processGetJobLocations(_response);
+                    throw _response;
+                });
+            };
+            TheHuntClient.prototype.processGetJobLocations = function (response) {
+                var status = response.status;
+                if (status === 200) {
+                    var _responseText = response.data;
+                    var result200 = null;
+                    var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                    if (resultData200 && resultData200.constructor === Array) {
+                        result200 = [];
+                        for (var _i = 0, resultData200_2 = resultData200; _i < resultData200_2.length; _i++) {
+                            var item = resultData200_2[_i];
+                            result200.push(JobLocation.fromJS(item));
+                        }
+                    }
+                    return this.q.resolve(result200);
+                }
+                else if (status !== 200 && status !== 204) {
+                    var _responseText = response.data;
+                    return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+                }
+                return this.q.resolve(null);
+            };
             TheHuntClient.prototype.createBusinessStream = function (businessStream) {
                 var _this = this;
                 var url_ = this.baseUrl + "/api/Company/business-stream";
@@ -94,8 +292,8 @@ var TheHunt;
                     var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                     if (resultData200 && resultData200.constructor === Array) {
                         result200 = [];
-                        for (var _i = 0, resultData200_1 = resultData200; _i < resultData200_1.length; _i++) {
-                            var item = resultData200_1[_i];
+                        for (var _i = 0, resultData200_3 = resultData200; _i < resultData200_3.length; _i++) {
+                            var item = resultData200_3[_i];
                             result200.push(BusinessStream.fromJS(item));
                         }
                     }
@@ -138,6 +336,48 @@ var TheHunt;
                     var resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                     result201 = resultData201 ? Company.fromJS(resultData201) : null;
                     return this.q.resolve(result201);
+                }
+                else if (status !== 200 && status !== 204) {
+                    var _responseText = response.data;
+                    return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+                }
+                return this.q.resolve(null);
+            };
+            TheHuntClient.prototype.getCompanies = function () {
+                var _this = this;
+                var url_ = this.baseUrl + "/api/Company";
+                url_ = url_.replace(/[?&]$/, "");
+                var options_ = {
+                    url: url_,
+                    method: "GET",
+                    transformResponse: [],
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    }
+                };
+                return this.http(options_).then(function (_response) {
+                    return _this.processGetCompanies(_response);
+                }, function (_response) {
+                    if (_response.status)
+                        return _this.processGetCompanies(_response);
+                    throw _response;
+                });
+            };
+            TheHuntClient.prototype.processGetCompanies = function (response) {
+                var status = response.status;
+                if (status === 200) {
+                    var _responseText = response.data;
+                    var result200 = null;
+                    var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                    if (resultData200 && resultData200.constructor === Array) {
+                        result200 = [];
+                        for (var _i = 0, resultData200_4 = resultData200; _i < resultData200_4.length; _i++) {
+                            var item = resultData200_4[_i];
+                            result200.push(Company.fromJS(item));
+                        }
+                    }
+                    return this.q.resolve(result200);
                 }
                 else if (status !== 200 && status !== 204) {
                     var _responseText = response.data;
@@ -212,8 +452,8 @@ var TheHunt;
                     var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                     if (resultData200 && resultData200.constructor === Array) {
                         result200 = [];
-                        for (var _i = 0, resultData200_2 = resultData200; _i < resultData200_2.length; _i++) {
-                            var item = resultData200_2[_i];
+                        for (var _i = 0, resultData200_5 = resultData200; _i < resultData200_5.length; _i++) {
+                            var item = resultData200_5[_i];
                             result200.push(UserType.fromJS(item));
                         }
                     }
@@ -301,6 +541,48 @@ var TheHunt;
                 }
                 return this.q.resolve(null);
             };
+            TheHuntClient.prototype.getUserAccounts = function () {
+                var _this = this;
+                var url_ = this.baseUrl + "/api/User/user-account";
+                url_ = url_.replace(/[?&]$/, "");
+                var options_ = {
+                    url: url_,
+                    method: "GET",
+                    transformResponse: [],
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    }
+                };
+                return this.http(options_).then(function (_response) {
+                    return _this.processGetUserAccounts(_response);
+                }, function (_response) {
+                    if (_response.status)
+                        return _this.processGetUserAccounts(_response);
+                    throw _response;
+                });
+            };
+            TheHuntClient.prototype.processGetUserAccounts = function (response) {
+                var status = response.status;
+                if (status === 200) {
+                    var _responseText = response.data;
+                    var result200 = null;
+                    var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                    if (resultData200 && resultData200.constructor === Array) {
+                        result200 = [];
+                        for (var _i = 0, resultData200_6 = resultData200; _i < resultData200_6.length; _i++) {
+                            var item = resultData200_6[_i];
+                            result200.push(UserAccount.fromJS(item));
+                        }
+                    }
+                    return this.q.resolve(result200);
+                }
+                else if (status !== 200 && status !== 204) {
+                    var _responseText = response.data;
+                    return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+                }
+                return this.q.resolve(null);
+            };
             TheHuntClient.prototype.createUserAccount = function (userAccount) {
                 var _this = this;
                 var url_ = this.baseUrl + "/api/User/user-account";
@@ -342,6 +624,115 @@ var TheHunt;
             return TheHuntClient;
         }());
         Client.TheHuntClient = TheHuntClient;
+        var JobPost = /** @class */ (function () {
+            function JobPost(data) {
+                if (data) {
+                    for (var property in data) {
+                        if (data.hasOwnProperty(property))
+                            this[property] = data[property];
+                    }
+                }
+            }
+            JobPost.prototype.init = function (data) {
+                if (data) {
+                    this.id = data["id"] !== undefined ? data["id"] : null;
+                    this.postedById = data["postedById"] !== undefined ? data["postedById"] : null;
+                    this.jobTypeId = data["jobTypeId"] !== undefined ? data["jobTypeId"] : null;
+                    this.companyId = data["companyId"] !== undefined ? data["companyId"] : null;
+                    this.isCompanyNameHidden = data["isCompanyNameHidden"] !== undefined ? data["isCompanyNameHidden"] : null;
+                    this.createdDate = data["createdDate"] ? new Date(data["createdDate"].toString()) : null;
+                    this.jobDescription = data["jobDescription"] !== undefined ? data["jobDescription"] : null;
+                    this.jobLocationId = data["jobLocationId"] !== undefined ? data["jobLocationId"] : null;
+                    this.isActive = data["isActive"] !== undefined ? data["isActive"] : null;
+                }
+            };
+            JobPost.fromJS = function (data) {
+                var result = new JobPost();
+                result.init(data);
+                return result;
+            };
+            JobPost.prototype.toJSON = function (data) {
+                data = typeof data === 'object' ? data : {};
+                data["id"] = this.id !== undefined ? this.id : null;
+                data["postedById"] = this.postedById !== undefined ? this.postedById : null;
+                data["jobTypeId"] = this.jobTypeId !== undefined ? this.jobTypeId : null;
+                data["companyId"] = this.companyId !== undefined ? this.companyId : null;
+                data["isCompanyNameHidden"] = this.isCompanyNameHidden !== undefined ? this.isCompanyNameHidden : null;
+                data["createdDate"] = this.createdDate ? this.createdDate.toISOString() : null;
+                data["jobDescription"] = this.jobDescription !== undefined ? this.jobDescription : null;
+                data["jobLocationId"] = this.jobLocationId !== undefined ? this.jobLocationId : null;
+                data["isActive"] = this.isActive !== undefined ? this.isActive : null;
+                return data;
+            };
+            return JobPost;
+        }());
+        Client.JobPost = JobPost;
+        var JobType = /** @class */ (function () {
+            function JobType(data) {
+                if (data) {
+                    for (var property in data) {
+                        if (data.hasOwnProperty(property))
+                            this[property] = data[property];
+                    }
+                }
+            }
+            JobType.prototype.init = function (data) {
+                if (data) {
+                    this.id = data["id"] !== undefined ? data["id"] : null;
+                    this.name = data["name"] !== undefined ? data["name"] : null;
+                }
+            };
+            JobType.fromJS = function (data) {
+                var result = new JobType();
+                result.init(data);
+                return result;
+            };
+            JobType.prototype.toJSON = function (data) {
+                data = typeof data === 'object' ? data : {};
+                data["id"] = this.id !== undefined ? this.id : null;
+                data["name"] = this.name !== undefined ? this.name : null;
+                return data;
+            };
+            return JobType;
+        }());
+        Client.JobType = JobType;
+        var JobLocation = /** @class */ (function () {
+            function JobLocation(data) {
+                if (data) {
+                    for (var property in data) {
+                        if (data.hasOwnProperty(property))
+                            this[property] = data[property];
+                    }
+                }
+            }
+            JobLocation.prototype.init = function (data) {
+                if (data) {
+                    this.id = data["id"] !== undefined ? data["id"] : null;
+                    this.streetAddress = data["streetAddress"] !== undefined ? data["streetAddress"] : null;
+                    this.city = data["city"] !== undefined ? data["city"] : null;
+                    this.state = data["state"] !== undefined ? data["state"] : null;
+                    this.country = data["country"] !== undefined ? data["country"] : null;
+                    this.zip = data["zip"] !== undefined ? data["zip"] : null;
+                }
+            };
+            JobLocation.fromJS = function (data) {
+                var result = new JobLocation();
+                result.init(data);
+                return result;
+            };
+            JobLocation.prototype.toJSON = function (data) {
+                data = typeof data === 'object' ? data : {};
+                data["id"] = this.id !== undefined ? this.id : null;
+                data["streetAddress"] = this.streetAddress !== undefined ? this.streetAddress : null;
+                data["city"] = this.city !== undefined ? this.city : null;
+                data["state"] = this.state !== undefined ? this.state : null;
+                data["country"] = this.country !== undefined ? this.country : null;
+                data["zip"] = this.zip !== undefined ? this.zip : null;
+                return data;
+            };
+            return JobLocation;
+        }());
+        Client.JobLocation = JobLocation;
         var BusinessStream = /** @class */ (function () {
             function BusinessStream(data) {
                 if (data) {

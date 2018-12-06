@@ -26,18 +26,24 @@ namespace TheHunt.Host.ApiControllers
         [Route("user-type")]
         [SwaggerOperation(nameof(CreateUserType))]
         [ProducesResponseType(typeof(UserType), 201)]
-        public async Task<ActionResult<UserType>> CreateUserType([FromBody]UserType userType) => await userRepository.CreateUserType(userType);
+        public async Task<UserType> CreateUserType([FromBody]UserType userType) => await userRepository.CreateUserType(userType);
 
         [HttpPost]
         [Route("user-log")]
         [SwaggerOperation(nameof(CreateUserLog))]
         [ProducesResponseType(typeof(UserLog), 201)]
-        public async Task<ActionResult<UserLog>> CreateUserLog([FromBody]UserLog userLog) => await userRepository.CreateUserLog(userLog);
+        public async Task<UserLog> CreateUserLog([FromBody]UserLog userLog) => await userRepository.CreateUserLog(userLog);
+
+        [HttpGet]
+        [Route("user-account")]
+        [SwaggerOperation(nameof(GetUserAccounts))]
+        [ProducesResponseType(typeof(IEnumerable<UserAccount>), 200)]
+        public IEnumerable<UserAccount> GetUserAccounts() => userRepository.GetUserAccounts();
 
         [HttpPost]
         [Route("user-account")]
         [SwaggerOperation(nameof(CreateUserAccount))]
         [ProducesResponseType(typeof(UserAccount), 201)]
-        public async Task<ActionResult<UserAccount>> CreateUserAccount([FromBody]UserAccount userAccount) => await userRepository.CreateUserAccount(userAccount);
+        public async Task<UserAccount> CreateUserAccount([FromBody]UserAccount userAccount) => await userRepository.CreateUserAccount(userAccount);
     }
 }

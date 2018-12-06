@@ -74,5 +74,27 @@ namespace TheHunt.Data.Internal
 
             return company;
         }
+
+        public IEnumerable<DomainModel.Models.Company> GetCompanies()
+        {
+            var results = new List<DomainModel.Models.Company>();
+
+            var companyEf = context.Company.ToList();
+
+            foreach (var item in companyEf)
+            {
+                results.Add(new DomainModel.Models.Company
+                {
+                    Id = item.Id,
+                    CompanyName = item.CompanyName,
+                    BusinessStreamId = item.BusinessStreamId,
+                    CompanyWebsiteUrl = item.CompanyWebsiteUrl,
+                    EstablishmentDate = item.EstablishmentDate,
+                    ProfileDescription = item.ProfileDescription
+                });
+            }
+
+            return results;
+        }
     }
 }

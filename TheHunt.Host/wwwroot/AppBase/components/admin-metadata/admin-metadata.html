@@ -153,3 +153,130 @@
         </div>
     </div>
 </div>
+
+<br />
+<br />
+
+
+<hr />
+
+<h1>Job</h1>
+
+<div class="col-xs-12">
+    <input type="button" data-toggle="collapse" class="btn btn-success" data-target="#jobType" value="Job Type" />
+    <div id="jobType" class="collapse" style="border:1px solid black; padding:5px; margin:5px;">
+        <div class="row">
+            <label for="jobTypeName" class="col-sm-2 col-form-label">Job Type Name</label>
+            <div class="col-sm-4">
+                <input name="jobTypeName" class="form-control" type="text" id="jobTypeName" ng-model="$ctrl.jobType.name" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <input type="button" class="btn btn-success" value="Create Job Type" ng-click="$ctrl.CreateJobType()" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+
+<div class="col-xs-12">
+    <input type="button" data-toggle="collapse" class="btn btn-success" data-target="#jobLocation" value="Job Location" />
+    <div id="jobLocation" class="collapse" style="border:1px solid black; padding:5px; margin:5px;">
+        <div class="row">
+            <label for="jobLocationAddress" class="col-sm-2 col-form-label">Job Location Street Address</label>
+            <div class="col-sm-4">
+                <input name="jobTypeName" class="form-control" type="text" id="jobTypeName" ng-model="$ctrl.jobLocation.streetAddress" required>
+            </div>
+        </div>
+        <div class="row">
+            <label for="jobLocationCity" class="col-sm-2 col-form-label">Job Location City</label>
+            <div class="col-sm-4">
+                <input name="jobLocationCity" class="form-control" type="text" id="jobLocationCity" ng-model="$ctrl.jobLocation.city" required>
+            </div>
+        </div>
+        <div class="row">
+            <label for="jobLocationState" class="col-sm-2 col-form-label">Job Location State</label>
+            <div class="col-sm-4">
+                <input name="jobLocationState" class="form-control" type="text" id="jobLocationState" ng-model="$ctrl.jobLocation.state" required>
+            </div>
+        </div>
+        <div class="row">
+            <label for="jobLocationCountry" class="col-sm-2 col-form-label">Job Location Country</label>
+            <div class="col-sm-4">
+                <input name="jobLocationCountry" class="form-control" type="text" id="jobLocationCountry" ng-model="$ctrl.jobLocation.country" required>
+            </div>
+        </div>
+        <div class="row">
+            <label for="jobLocationZip" class="col-sm-2 col-form-label">Job Location Zip</label>
+            <div class="col-sm-4">
+                <input name="jobLocationZip" class="form-control" type="text" id="jobLocationZip" ng-model="$ctrl.jobLocation.zip" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <input type="button" class="btn btn-success" value="Create Job Type" ng-click="$ctrl.CreateJobLocation()" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+
+<div class="col-xs-12">
+    <input type="button" data-toggle="collapse" class="btn btn-success" data-target="#jobPost" value="Job Post" />
+    <div id="jobPost" class="collapse" style="border:1px solid black; padding:5px; margin:5px;">
+        <div class="row">
+            <label for="jobDescription" class="col-sm-2 col-form-label">Job Description</label>
+            <div class="col-sm-4">
+                <textarea ng-model="$ctrl.jobPost.jobDescription" required></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <label for="postedById" class="col-sm-2 col-form-label">Posted By</label>
+            <div class="col-sm-4">
+                <select ng-model="$ctrl.jobPost.postedById" ng-options="obj.id as obj.email for obj in $ctrl.userAccounts"></select>
+            </div>
+        </div>
+        <div class="row">
+            <label for="jobTypeId" class="col-sm-2 col-form-label">Job Type</label>
+            <div class="col-sm-4">
+                <select ng-model="$ctrl.jobPost.jobTypeId" ng-options="obj.id as obj.name for obj in $ctrl.jobTypes"></select>
+            </div>
+        </div>
+        <div class="row">
+            <label for="companyId" class="col-sm-2 col-form-label">Company</label>
+            <div class="col-sm-4">
+                <select ng-model="$ctrl.jobPost.companyId" ng-options="obj.id as obj.companyName for obj in $ctrl.companies"></select>
+            </div>
+        </div>
+        <div class="row">
+            <label for="joblocationId" class="col-sm-2 col-form-label">Job Location</label>
+            <div class="col-sm-4">
+                <select ng-model="$ctrl.jobPost.jobLocationId" ng-options="obj.id as obj.zip for obj in $ctrl.jobLocations"></select>
+            </div>
+        </div>
+        <div class="row">
+            <label for="isCompanyNameHidden" class="col-sm-2 col-form-label">Hide Company Name</label>
+            <div class="col-sm-4">
+                <input type="checkbox" ng-model="$ctrl.jobPost.isCompanyNameHidden"
+                       ng-true-value="'TRUE'" ng-false-value="'FALSE'">
+            </div>
+        </div>
+        <div class="row">
+            <label for="isActive" class="col-sm-2 col-form-label">Active</label>
+            <div class="col-sm-4">
+                <input type="checkbox" ng-model="$ctrl.jobPost.isActive"
+                       ng-true-value="'TRUE'" ng-false-value="'FALSE'">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <input type="button" class="btn btn-success" value="Create Job Post" ng-click="$ctrl.CreateJobPost()" />
+            </div>
+        </div>
+    </div>
+</div>

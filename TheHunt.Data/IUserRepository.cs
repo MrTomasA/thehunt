@@ -6,7 +6,7 @@ namespace TheHunt.Data
 {
     public interface IUserRepository
     {
-        IList<UserAccount> GetAllUserAccounts();
+        IEnumerable<DomainModel.Models.UserAccount> GetUserAccounts();
 
         IList<DomainModel.Models.UserType> GetUserTypes();
 

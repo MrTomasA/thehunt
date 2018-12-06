@@ -9,13 +9,20 @@
 namespace TheHunt.Client {
 
 export interface ITheHuntClient {
+    createJobPost(jobPost: JobPost): ng.IPromise<JobPost | null>;
+    createJobType(jobType: JobType): ng.IPromise<JobType | null>;
+    getJobTypes(): ng.IPromise<JobType[] | null>;
+    createJobLocation(jobLocation: JobLocation): ng.IPromise<JobLocation | null>;
+    getJobLocations(): ng.IPromise<JobLocation[] | null>;
     createBusinessStream(businessStream: BusinessStream): ng.IPromise<BusinessStream | null>;
     getBusinessStreams(): ng.IPromise<BusinessStream[] | null>;
     createCompany(company: Company): ng.IPromise<Company | null>;
+    getCompanies(): ng.IPromise<Company[] | null>;
     createSkillSet(skillSet: SkillSet): ng.IPromise<BusinessStream | null>;
     getUserTypes(): ng.IPromise<UserType[] | null>;
     createUserType(userType: UserType): ng.IPromise<UserType | null>;
     createUserLog(userLog: UserLog): ng.IPromise<UserLog | null>;
+    getUserAccounts(): ng.IPromise<UserAccount[] | null>;
     createUserAccount(userAccount: UserAccount): ng.IPromise<UserAccount | null>;
 }
 
@@ -29,6 +36,218 @@ export class TheHuntClient implements ITheHuntClient {
         this.http = $http;
         this.q = $q;
         this.baseUrl = baseUrl ? baseUrl : "http://localhost:63585";
+    }
+
+    createJobPost(jobPost: JobPost): ng.IPromise<JobPost | null> {
+        let url_ = this.baseUrl + "/api/JobPost";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(jobPost);
+
+        var options_ = <ng.IRequestConfig>{
+            url: url_,
+            method: "POST",
+            data: content_,
+            transformResponse: [], 
+            headers: {
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http(options_).then((_response) => {
+            return this.processCreateJobPost(_response);
+        }, (_response) => {
+            if (_response.status)
+                return this.processCreateJobPost(_response);
+            throw _response;
+        });
+    }
+
+    protected processCreateJobPost(response: any): ng.IPromise<JobPost | null> {
+        const status = response.status; 
+
+        if (status === 201) {
+            const _responseText = response.data;
+            let result201: JobPost | null = null;
+            let resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result201 = resultData201 ? JobPost.fromJS(resultData201) : <any>null;
+            return this.q.resolve(result201);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.data;
+            return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+        }
+        return this.q.resolve<JobPost | null>(<any>null);
+    }
+
+    createJobType(jobType: JobType): ng.IPromise<JobType | null> {
+        let url_ = this.baseUrl + "/api/JobPost/job-type";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(jobType);
+
+        var options_ = <ng.IRequestConfig>{
+            url: url_,
+            method: "POST",
+            data: content_,
+            transformResponse: [], 
+            headers: {
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http(options_).then((_response) => {
+            return this.processCreateJobType(_response);
+        }, (_response) => {
+            if (_response.status)
+                return this.processCreateJobType(_response);
+            throw _response;
+        });
+    }
+
+    protected processCreateJobType(response: any): ng.IPromise<JobType | null> {
+        const status = response.status; 
+
+        if (status === 201) {
+            const _responseText = response.data;
+            let result201: JobType | null = null;
+            let resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result201 = resultData201 ? JobType.fromJS(resultData201) : <any>null;
+            return this.q.resolve(result201);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.data;
+            return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+        }
+        return this.q.resolve<JobType | null>(<any>null);
+    }
+
+    getJobTypes(): ng.IPromise<JobType[] | null> {
+        let url_ = this.baseUrl + "/api/JobPost/job-type";
+        url_ = url_.replace(/[?&]$/, "");
+
+        var options_ = <ng.IRequestConfig>{
+            url: url_,
+            method: "GET",
+            transformResponse: [], 
+            headers: {
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http(options_).then((_response) => {
+            return this.processGetJobTypes(_response);
+        }, (_response) => {
+            if (_response.status)
+                return this.processGetJobTypes(_response);
+            throw _response;
+        });
+    }
+
+    protected processGetJobTypes(response: any): ng.IPromise<JobType[] | null> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const _responseText = response.data;
+            let result200: JobType[] | null = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(JobType.fromJS(item));
+            }
+            return this.q.resolve(result200);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.data;
+            return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+        }
+        return this.q.resolve<JobType[] | null>(<any>null);
+    }
+
+    createJobLocation(jobLocation: JobLocation): ng.IPromise<JobLocation | null> {
+        let url_ = this.baseUrl + "/api/JobPost/job-location";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(jobLocation);
+
+        var options_ = <ng.IRequestConfig>{
+            url: url_,
+            method: "POST",
+            data: content_,
+            transformResponse: [], 
+            headers: {
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http(options_).then((_response) => {
+            return this.processCreateJobLocation(_response);
+        }, (_response) => {
+            if (_response.status)
+                return this.processCreateJobLocation(_response);
+            throw _response;
+        });
+    }
+
+    protected processCreateJobLocation(response: any): ng.IPromise<JobLocation | null> {
+        const status = response.status; 
+
+        if (status === 201) {
+            const _responseText = response.data;
+            let result201: JobLocation | null = null;
+            let resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result201 = resultData201 ? JobLocation.fromJS(resultData201) : <any>null;
+            return this.q.resolve(result201);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.data;
+            return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+        }
+        return this.q.resolve<JobLocation | null>(<any>null);
+    }
+
+    getJobLocations(): ng.IPromise<JobLocation[] | null> {
+        let url_ = this.baseUrl + "/api/JobPost/job-location";
+        url_ = url_.replace(/[?&]$/, "");
+
+        var options_ = <ng.IRequestConfig>{
+            url: url_,
+            method: "GET",
+            transformResponse: [], 
+            headers: {
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http(options_).then((_response) => {
+            return this.processGetJobLocations(_response);
+        }, (_response) => {
+            if (_response.status)
+                return this.processGetJobLocations(_response);
+            throw _response;
+        });
+    }
+
+    protected processGetJobLocations(response: any): ng.IPromise<JobLocation[] | null> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const _responseText = response.data;
+            let result200: JobLocation[] | null = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(JobLocation.fromJS(item));
+            }
+            return this.q.resolve(result200);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.data;
+            return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+        }
+        return this.q.resolve<JobLocation[] | null>(<any>null);
     }
 
     createBusinessStream(businessStream: BusinessStream): ng.IPromise<BusinessStream | null> {
@@ -156,6 +375,49 @@ export class TheHuntClient implements ITheHuntClient {
             return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
         }
         return this.q.resolve<Company | null>(<any>null);
+    }
+
+    getCompanies(): ng.IPromise<Company[] | null> {
+        let url_ = this.baseUrl + "/api/Company";
+        url_ = url_.replace(/[?&]$/, "");
+
+        var options_ = <ng.IRequestConfig>{
+            url: url_,
+            method: "GET",
+            transformResponse: [], 
+            headers: {
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http(options_).then((_response) => {
+            return this.processGetCompanies(_response);
+        }, (_response) => {
+            if (_response.status)
+                return this.processGetCompanies(_response);
+            throw _response;
+        });
+    }
+
+    protected processGetCompanies(response: any): ng.IPromise<Company[] | null> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const _responseText = response.data;
+            let result200: Company[] | null = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(Company.fromJS(item));
+            }
+            return this.q.resolve(result200);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.data;
+            return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+        }
+        return this.q.resolve<Company[] | null>(<any>null);
     }
 
     createSkillSet(skillSet: SkillSet): ng.IPromise<BusinessStream | null> {
@@ -327,6 +589,49 @@ export class TheHuntClient implements ITheHuntClient {
         return this.q.resolve<UserLog | null>(<any>null);
     }
 
+    getUserAccounts(): ng.IPromise<UserAccount[] | null> {
+        let url_ = this.baseUrl + "/api/User/user-account";
+        url_ = url_.replace(/[?&]$/, "");
+
+        var options_ = <ng.IRequestConfig>{
+            url: url_,
+            method: "GET",
+            transformResponse: [], 
+            headers: {
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http(options_).then((_response) => {
+            return this.processGetUserAccounts(_response);
+        }, (_response) => {
+            if (_response.status)
+                return this.processGetUserAccounts(_response);
+            throw _response;
+        });
+    }
+
+    protected processGetUserAccounts(response: any): ng.IPromise<UserAccount[] | null> {
+        const status = response.status; 
+
+        if (status === 200) {
+            const _responseText = response.data;
+            let result200: UserAccount[] | null = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(UserAccount.fromJS(item));
+            }
+            return this.q.resolve(result200);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.data;
+            return throwException(this.q, "An unexpected server error occurred.", status, _responseText);
+        }
+        return this.q.resolve<UserAccount[] | null>(<any>null);
+    }
+
     createUserAccount(userAccount: UserAccount): ng.IPromise<UserAccount | null> {
         let url_ = this.baseUrl + "/api/User/user-account";
         url_ = url_.replace(/[?&]$/, "");
@@ -368,6 +673,167 @@ export class TheHuntClient implements ITheHuntClient {
         }
         return this.q.resolve<UserAccount | null>(<any>null);
     }
+}
+
+export class JobPost implements IJobPost {
+    id?: number | null;
+    postedById: number;
+    jobTypeId: number;
+    companyId: number;
+    isCompanyNameHidden: boolean;
+    createdDate: Date;
+    jobDescription?: string | null;
+    jobLocationId: number;
+    isActive: boolean;
+
+    constructor(data?: IJobPost) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"] !== undefined ? data["id"] : <any>null;
+            this.postedById = data["postedById"] !== undefined ? data["postedById"] : <any>null;
+            this.jobTypeId = data["jobTypeId"] !== undefined ? data["jobTypeId"] : <any>null;
+            this.companyId = data["companyId"] !== undefined ? data["companyId"] : <any>null;
+            this.isCompanyNameHidden = data["isCompanyNameHidden"] !== undefined ? data["isCompanyNameHidden"] : <any>null;
+            this.createdDate = data["createdDate"] ? new Date(data["createdDate"].toString()) : <any>null;
+            this.jobDescription = data["jobDescription"] !== undefined ? data["jobDescription"] : <any>null;
+            this.jobLocationId = data["jobLocationId"] !== undefined ? data["jobLocationId"] : <any>null;
+            this.isActive = data["isActive"] !== undefined ? data["isActive"] : <any>null;
+        }
+    }
+
+    static fromJS(data: any): JobPost {
+        let result = new JobPost();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id !== undefined ? this.id : <any>null;
+        data["postedById"] = this.postedById !== undefined ? this.postedById : <any>null;
+        data["jobTypeId"] = this.jobTypeId !== undefined ? this.jobTypeId : <any>null;
+        data["companyId"] = this.companyId !== undefined ? this.companyId : <any>null;
+        data["isCompanyNameHidden"] = this.isCompanyNameHidden !== undefined ? this.isCompanyNameHidden : <any>null;
+        data["createdDate"] = this.createdDate ? this.createdDate.toISOString() : <any>null;
+        data["jobDescription"] = this.jobDescription !== undefined ? this.jobDescription : <any>null;
+        data["jobLocationId"] = this.jobLocationId !== undefined ? this.jobLocationId : <any>null;
+        data["isActive"] = this.isActive !== undefined ? this.isActive : <any>null;
+        return data; 
+    }
+}
+
+export interface IJobPost {
+    id?: number | null;
+    postedById: number;
+    jobTypeId: number;
+    companyId: number;
+    isCompanyNameHidden: boolean;
+    createdDate: Date;
+    jobDescription?: string | null;
+    jobLocationId: number;
+    isActive: boolean;
+}
+
+export class JobType implements IJobType {
+    id?: number | null;
+    name?: string | null;
+
+    constructor(data?: IJobType) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"] !== undefined ? data["id"] : <any>null;
+            this.name = data["name"] !== undefined ? data["name"] : <any>null;
+        }
+    }
+
+    static fromJS(data: any): JobType {
+        let result = new JobType();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id !== undefined ? this.id : <any>null;
+        data["name"] = this.name !== undefined ? this.name : <any>null;
+        return data; 
+    }
+}
+
+export interface IJobType {
+    id?: number | null;
+    name?: string | null;
+}
+
+export class JobLocation implements IJobLocation {
+    id?: number | null;
+    streetAddress?: string | null;
+    city?: string | null;
+    state?: string | null;
+    country?: string | null;
+    zip?: string | null;
+
+    constructor(data?: IJobLocation) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"] !== undefined ? data["id"] : <any>null;
+            this.streetAddress = data["streetAddress"] !== undefined ? data["streetAddress"] : <any>null;
+            this.city = data["city"] !== undefined ? data["city"] : <any>null;
+            this.state = data["state"] !== undefined ? data["state"] : <any>null;
+            this.country = data["country"] !== undefined ? data["country"] : <any>null;
+            this.zip = data["zip"] !== undefined ? data["zip"] : <any>null;
+        }
+    }
+
+    static fromJS(data: any): JobLocation {
+        let result = new JobLocation();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id !== undefined ? this.id : <any>null;
+        data["streetAddress"] = this.streetAddress !== undefined ? this.streetAddress : <any>null;
+        data["city"] = this.city !== undefined ? this.city : <any>null;
+        data["state"] = this.state !== undefined ? this.state : <any>null;
+        data["country"] = this.country !== undefined ? this.country : <any>null;
+        data["zip"] = this.zip !== undefined ? this.zip : <any>null;
+        return data; 
+    }
+}
+
+export interface IJobLocation {
+    id?: number | null;
+    streetAddress?: string | null;
+    city?: string | null;
+    state?: string | null;
+    country?: string | null;
+    zip?: string | null;
 }
 
 export class BusinessStream implements IBusinessStream {

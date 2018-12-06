@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace TheHunt.EntityFrameworkGenerator.Models
 {
@@ -231,9 +229,9 @@ namespace TheHunt.EntityFrameworkGenerator.Models
 
             modelBuilder.Entity<JobType>(entity =>
             {
-                entity.Property(e => e.JobType1)
+                entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasColumnName("JobType")
+                    .HasColumnName("Name")
                     .HasMaxLength(20)
                     .IsUnicode(false);
             });

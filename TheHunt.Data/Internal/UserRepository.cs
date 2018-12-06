@@ -18,12 +18,29 @@ namespace TheHunt.Data.Internal
             this.logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
         }
 
-        public IList<UserAccount> GetAllUserAccounts()
+        public IEnumerable<DomainModel.Models.UserAccount> GetUserAccounts()
         {
-            return context.UserAccount
-                .Include(s => s.UserType)
-                .Include(s => s.UserLog)
-                .ToList();
+            var results = new List<DomainModel.Models.UserAccount>();
+
+            var userAccountEf = context.UserAccount.ToList();
+
+            foreach (var item in userAccountEf)
+            {
+                results.Add(new DomainModel.Models.UserAccount
+                {
+                    Id = item.Id,
+                    Email = item.Email,
+                    EmailNotificationActive = item.EmailNotificationActive,
+                    ContactNumber = item.ContactNumber,
+                    DateOfBirth = item.DateOfBirth,
+                    Gender = item.Gender,
+                    IsActive = item.IsActive,
+                    RegistrationDate = item.RegistrationDate,
+                    UserTypeId = item.UserTypeId
+                });
+            }
+
+            return results;
         }
 
         public UserAccount GetUserAccount(int id)

@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[JobType]
 (
 	[Id] INT NOT NULL IDENTITY , 
-    [JobType] VARCHAR(20) NOT NULL, 
+    [Name] VARCHAR(20) NOT NULL, 
     CONSTRAINT [PK_JobType] PRIMARY KEY ([Id])
 )

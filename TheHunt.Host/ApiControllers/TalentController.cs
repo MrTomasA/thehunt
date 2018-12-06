@@ -19,6 +19,6 @@ namespace TheHunt.Host.ApiControllers
         [Route("skill-set")]
         [SwaggerOperation(nameof(CreateSkillSet))]
         [ProducesResponseType(typeof(BusinessStream), 201)]
-        public async Task<ActionResult<SkillSet>> CreateSkillSet([FromBody]SkillSet skillSet) => await talentRepository.CreateSkillSet(skillSet);
+        public async Task<SkillSet> CreateSkillSet([FromBody]SkillSet skillSet) => await talentRepository.CreateSkillSet(skillSet);
     }
 }

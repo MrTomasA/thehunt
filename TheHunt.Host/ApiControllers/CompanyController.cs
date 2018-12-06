@@ -23,7 +23,7 @@ namespace TheHunt.Host.ApiControllers
         [Route("business-stream")]
         [SwaggerOperation(nameof(CreateBusinessStream))]
         [ProducesResponseType(typeof(BusinessStream), 201)]
-        public async Task<ActionResult<BusinessStream>> CreateBusinessStream([FromBody]BusinessStream businessStream) => await companyRepository.CreateBusinessStream(businessStream);
+        public async Task<BusinessStream> CreateBusinessStream([FromBody]BusinessStream businessStream) => await companyRepository.CreateBusinessStream(businessStream);
 
         [HttpGet]
         [Route("business-stream")]
@@ -34,6 +34,11 @@ namespace TheHunt.Host.ApiControllers
         [HttpPost]
         [SwaggerOperation(nameof(CreateCompany))]
         [ProducesResponseType(typeof(Company), 201)]
-        public async Task<ActionResult<Company>> CreateCompany([FromBody]Company company) => await companyRepository.CreateCompany(company);
+        public async Task<Company> CreateCompany([FromBody]Company company) => await companyRepository.CreateCompany(company);
+
+        [HttpGet]
+        [SwaggerOperation(nameof(GetCompanies))]
+        [ProducesResponseType(typeof(IEnumerable<Company>), 200)]
+        public IEnumerable<Company> GetCompanies() => companyRepository.GetCompanies();
     }
 }

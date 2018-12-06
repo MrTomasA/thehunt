@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace TheHunt.EntityFrameworkGenerator.Models
 {
@@ -11,7 +10,7 @@ namespace TheHunt.EntityFrameworkGenerator.Models
         }
 
         public int Id { get; set; }
-        public string JobType1 { get; set; }
+        public string Name { get; set; }
 
         public ICollection<JobPost> JobPost { get; set; }
     }
